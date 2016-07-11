@@ -4,7 +4,7 @@
   "description": "Canvas2d odometer effect",
   "main": "src/index.js",
   "scripts": {
-    "dev": "webpack-dev-server --progress --colors --inline",
+    "dev": "webpack-dev-server --progress --colors --inline --host 0.0.0.0",
     "start": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
