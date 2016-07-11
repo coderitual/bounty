@@ -3,6 +3,7 @@ module.exports = {
   output: {
     filename: 'odoo.js',
     path: './lib/',
+    publicPath: '/'
   },
   module: {
     loaders: [
