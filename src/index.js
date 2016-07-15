@@ -1,11 +1,20 @@
 const canvas = document.createElement('canvas');
-canvas.height = 900;
+canvas.height = 1000;
 canvas.width = 1500;
 const ctx = canvas.getContext('2d');
 document.body.appendChild(canvas);
 
 const WIDTH = canvas.width;
 const HEIGHT = canvas.height;
+
+const rotate = (index, max) => {
+  if (index < 0) {
+    return max + (index);
+  } else if (index > max) {
+    return index % (max);
+  }
+  return index;
+};
 
 const drawMotionText = ({ text, x, y, iterations = 20 }) => {
   for (let i = 0; i < iterations; i++) {
@@ -16,18 +25,43 @@ const drawMotionText = ({ text, x, y, iterations = 20 }) => {
 };
 
 const DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+const DIGITS_COUNT = DIGITS.length;
+
+const fontHeight = 500;
 
 const createDigitRoutlette = () => {
-  let currentIndex = 5;
-  let y = HEIGHT / 2;
+  const targetIndex = 5;
+  const targetRounds = 1;
+  const startIndex = 0;
+  const originY = HEIGHT / 2;
+  const originX = 0;
 
-  const fontHeight = 500;
+  let currentIndex = startIndex;
+  const pathLength = (targetRounds * DIGITS_COUNT + targetIndex) * fontHeight;
+  let pathY = 0;
+
+  let y = pathY;
+  let x = originX;
 
   const update = () => {
-    // current
-    drawMotionText({ text: DIGITS[currentIndex], x: 0, y });
-    // next
-    drawMotionText({ text: DIGITS[(currentIndex + 1)], x: 0, y: y + fontHeight });
+    pathY += 100;
+    y = (pathY - originY) % (originY);
+    currentIndex = rotate(((pathY - originY) / originY) | 0, DIGITS_COUNT);
+    drawMotionText({
+      text: DIGITS[currentIndex],
+      x,
+      y: y
+    });
+    drawMotionText({
+      text: DIGITS[(rotate(currentIndex - 1, DIGITS_COUNT))],
+      x,
+      y: y + fontHeight
+    });
+    drawMotionText({
+      text: DIGITS[(rotate(currentIndex + 1, DIGITS_COUNT))],
+      x,
+      y: y - fontHeight
+    });
   };
 
   return { update };
@@ -38,7 +72,11 @@ const digit = createDigitRoutlette();
 const update = () => {
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
   ctx.fillStyle = '#FFF';
-  ctx.font = 'bold 500px Arial Black';
+  ctx.font = `bold ${fontHeight}px ITV Reem`;
+  // ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+  // ctx.shadowOffsetX = 2;
+  // ctx.shadowOffsetY = 2;
+  // ctx.shadowBlur = 10;
   ctx.textBaseline = 'middle';
   digit.update();
 };
