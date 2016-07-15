@@ -29,24 +29,24 @@ const DIGITS_COUNT = DIGITS.length;
 
 const fontHeight = 300;
 
-const createDigitRoutlette = () => {
+const createDigitRoutlette = (originX = 0) => {
   const targetIndex = 5;
   const targetRounds = 1;
   const startIndex = 0;
   const originY = HEIGHT / 2;
-  const originX = 0;
 
   let currentIndex = startIndex;
   const pathLength = (targetRounds * DIGITS_COUNT + targetIndex) * fontHeight;
   let pathY = 0;
 
   let y = pathY;
-  let x = originX;
+  const x = originX;
 
   const update = () => {
-    //pathY += 5;
-    y = (pathY + fontHeight / 2) % (HEIGHT / 2);
-    currentIndex = rotate(((pathY + fontHeight / 2) / (HEIGHT / 2)) | 0, DIGITS_COUNT);
+    pathY += 105;
+    const offset = fontHeight / 2;
+    y = (pathY + offset) % (HEIGHT / 2);
+    currentIndex = rotate(((pathY + offset) / (HEIGHT / 2)) | 0, DIGITS_COUNT);
 
     drawMotionText({
       text: DIGITS[currentIndex],
@@ -56,12 +56,12 @@ const createDigitRoutlette = () => {
     drawMotionText({
       text: DIGITS[(rotate(currentIndex - 1, DIGITS_COUNT))],
       x,
-      y: y + fontHeight + originY - fontHeight / 2
+      y: y + fontHeight + originY - offset
     });
     drawMotionText({
       text: DIGITS[(rotate(currentIndex + 1, DIGITS_COUNT))],
       x,
-      y: y - fontHeight + originY - fontHeight / 2
+      y: y - fontHeight + originY - offset
     });
   };
 
