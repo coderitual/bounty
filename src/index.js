@@ -1,5 +1,5 @@
 const canvas = document.createElement('canvas');
-canvas.height = 1000;
+canvas.height = 600;
 canvas.width = 1500;
 const ctx = canvas.getContext('2d');
 document.body.appendChild(canvas);
@@ -10,7 +10,7 @@ const HEIGHT = canvas.height;
 const rotate = (index, max) => {
   if (index < 0) {
     return max + (index);
-  } else if (index > max) {
+  } else if (index >= max) {
     return index % (max);
   }
   return index;
@@ -27,7 +27,7 @@ const drawMotionText = ({ text, x, y, iterations = 20 }) => {
 const DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 const DIGITS_COUNT = DIGITS.length;
 
-const fontHeight = 500;
+const fontHeight = 300;
 
 const createDigitRoutlette = () => {
   const targetIndex = 5;
@@ -44,23 +44,24 @@ const createDigitRoutlette = () => {
   let x = originX;
 
   const update = () => {
-    pathY += 100;
-    y = (pathY - originY) % (originY);
-    currentIndex = rotate(((pathY - originY) / originY) | 0, DIGITS_COUNT);
+    //pathY += 5;
+    y = (pathY + fontHeight / 2) % (HEIGHT / 2);
+    currentIndex = rotate(((pathY + fontHeight / 2) / (HEIGHT / 2)) | 0, DIGITS_COUNT);
+
     drawMotionText({
       text: DIGITS[currentIndex],
       x,
-      y: y
+      y: y + originY - fontHeight / 2
     });
     drawMotionText({
       text: DIGITS[(rotate(currentIndex - 1, DIGITS_COUNT))],
       x,
-      y: y + fontHeight
+      y: y + fontHeight + originY - fontHeight / 2
     });
     drawMotionText({
       text: DIGITS[(rotate(currentIndex + 1, DIGITS_COUNT))],
       x,
-      y: y - fontHeight
+      y: y - fontHeight + originY - fontHeight / 2
     });
   };
 
