@@ -43,7 +43,7 @@ const createDigitRoutlette = (originX = 0) => {
   const x = originX;
 
   const update = () => {
-    pathY += 105;
+    pathY += 100;
     const offset = fontHeight / 2;
     y = (pathY + offset) % (HEIGHT / 2);
     currentIndex = rotate(((pathY + offset) / (HEIGHT / 2)) | 0, DIGITS_COUNT);
@@ -69,6 +69,8 @@ const createDigitRoutlette = (originX = 0) => {
 };
 
 const digit = createDigitRoutlette();
+const digit2 = createDigitRoutlette(200);
+const digit3 = createDigitRoutlette(400);
 
 const update = () => {
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
@@ -80,6 +82,8 @@ const update = () => {
   // ctx.shadowBlur = 10;
   ctx.textBaseline = 'middle';
   digit.update();
+  digit2.update();
+  digit3.update();
 };
 
 const loop = () => {
