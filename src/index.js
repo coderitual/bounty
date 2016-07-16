@@ -16,10 +16,25 @@ const rotate = (index, max) => {
   return index;
 };
 
-const drawMotionText = ({ text, x, y, iterations = 20 }) => {
+const blurMap = {
+  1: [1, 0],
+  2: [0.9, 0.1],
+  3: [0.7, 0.25],
+  4: [0.6, 0.2],
+  5: [0.5, 0.1],
+  6: [0.5, 0.09],
+  7: [0.4, 0.07],
+  8: [0.4, 0.06],
+  9: [0.2, 0.02],
+  10: [0.2, 0.02]
+};
+
+const drawMotionText = ({ text, x, y, blur = 10 }) => {
+  const iterations = blur * 2;
+  const [start, modifier] = blurMap[blur];
   for (let i = 0; i < iterations; i++) {
     const pos = i - iterations / 2;
-    ctx.globalAlpha = 0.2 - 0.02 * Math.abs(pos);
+    ctx.globalAlpha = start - modifier * Math.abs(pos);
     ctx.fillText(text, x, y + pos * 5);
   }
 };
@@ -43,7 +58,7 @@ const createDigitRoutlette = (originX = 0) => {
   const x = originX;
 
   const update = () => {
-    pathY += 100;
+    pathY += 0;
     const offset = fontHeight / 2;
     y = (pathY + offset) % (HEIGHT / 2);
     currentIndex = rotate(((pathY + offset) / (HEIGHT / 2)) | 0, DIGITS_COUNT);
@@ -51,7 +66,7 @@ const createDigitRoutlette = (originX = 0) => {
     drawMotionText({
       text: DIGITS[currentIndex],
       x,
-      y: y + originY - fontHeight / 2
+      y: y + originY - offset
     });
     drawMotionText({
       text: DIGITS[(rotate(currentIndex - 1, DIGITS_COUNT))],
