@@ -17,32 +17,42 @@ const rotate = (index, max) => {
 };
 
 const blurMap = {
-  1: [1, 0],
-  2: [0.9, 0.1],
-  3: [0.7, 0.25],
-  4: [0.6, 0.2],
-  5: [0.5, 0.1],
-  6: [0.5, 0.09],
-  7: [0.4, 0.07],
-  8: [0.4, 0.06],
-  9: [0.2, 0.02],
-  10: [0.2, 0.02]
+  0: [1, 0, 0],
+  1: [1, 0.5, 3],
+  2: [1, 0.4, 4],
+  3: [0.6, 0.2, 5],
+  4: [0.5, 0.1, 5],
+  5: [0.5, 0.09, 5],
+  6: [0.4, 0.07, 5],
+  7: [0.4, 0.06, 5],
+  8: [0.2, 0.02, 5],
+  9: [0.2, 0.02, 5],
 };
 
-const drawMotionText = ({ text, x, y, blur = 10 }) => {
-  const iterations = blur * 2;
-  const [start, modifier] = blurMap[blur];
+const drawMotionText = ({ text, x, y, blur = 9 }) => {
+  const iterations = blur * 2 + 1;
+  const [start, modifier, offsetStrength] = blurMap[blur];
+  ctx.save();
+  ctx.shadowColor = `rgba(0, 0, 0, ${0.4 - blur / 10})`;
+  ctx.shadowOffsetX = 2;
+  ctx.shadowOffsetY = 2;
+  ctx.shadowBlur = 10;
+  ctx.textBaseline = 'middle';
+
   for (let i = 0; i < iterations; i++) {
     const pos = i - iterations / 2;
     ctx.globalAlpha = start - modifier * Math.abs(pos);
-    ctx.fillText(text, x, y + pos * 5);
+    ctx.fillText(text, x, y + pos * offsetStrength);
   }
+
+  ctx.restore();
 };
 
 const DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 const DIGITS_COUNT = DIGITS.length;
 
 const fontHeight = 300;
+let speed = 1000;
 
 const createDigitRoutlette = (originX = 0) => {
   const targetIndex = 5;
@@ -58,7 +68,12 @@ const createDigitRoutlette = (originX = 0) => {
   const x = originX;
 
   const update = () => {
-    pathY += 0;
+    speed--;
+    if (speed <= 0) {
+      speed = 0;
+    }
+    pathY += (speed / 10) | 0;
+    const blur = (speed / 100) | 0;
     const offset = fontHeight / 2;
     y = (pathY + offset) % (HEIGHT / 2);
     currentIndex = rotate(((pathY + offset) / (HEIGHT / 2)) | 0, DIGITS_COUNT);
@@ -66,17 +81,20 @@ const createDigitRoutlette = (originX = 0) => {
     drawMotionText({
       text: DIGITS[currentIndex],
       x,
-      y: y + originY - offset
+      y: y + originY - offset,
+      blur
     });
     drawMotionText({
       text: DIGITS[(rotate(currentIndex - 1, DIGITS_COUNT))],
       x,
-      y: y + fontHeight + originY - offset
+      y: y + fontHeight + originY - offset,
+      blur
     });
     drawMotionText({
       text: DIGITS[(rotate(currentIndex + 1, DIGITS_COUNT))],
       x,
-      y: y - fontHeight + originY - offset
+      y: y - fontHeight + originY - offset,
+      blur
     });
   };
 
@@ -91,11 +109,6 @@ const update = () => {
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
   ctx.fillStyle = '#FFF';
   ctx.font = `bold ${fontHeight}px ITV Reem`;
-  // ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
-  // ctx.shadowOffsetX = 2;
-  // ctx.shadowOffsetY = 2;
-  // ctx.shadowBlur = 10;
-  ctx.textBaseline = 'middle';
   digit.update();
   digit2.update();
   digit3.update();
