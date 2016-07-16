@@ -1,5 +1,5 @@
 const canvas = document.createElement('canvas');
-canvas.height = 600;
+canvas.height = 400;
 canvas.width = 1500;
 const ctx = canvas.getContext('2d');
 document.body.appendChild(canvas);
@@ -18,13 +18,13 @@ const rotate = (index, max) => {
 
 const blurMap = {
   0: [1, 0, 0],
-  1: [1, 0.5, 3],
-  2: [1, 0.4, 4],
-  3: [0.6, 0.2, 5],
-  4: [0.5, 0.1, 5],
-  5: [0.5, 0.09, 5],
-  6: [0.4, 0.07, 5],
-  7: [0.4, 0.06, 5],
+  1: [1, 0, 0],
+  2:  [1, 0, 0],
+  3:  [1, 0, 0],
+  4: [0.4, 0.06, 5],
+  5: [0.2, 0.02, 5],
+  6:[0.2, 0.02, 5],
+  7: [0.2, 0.02, 5],
   8: [0.2, 0.02, 5],
   9: [0.2, 0.02, 5],
 };
@@ -51,8 +51,8 @@ const drawMotionText = ({ text, x, y, blur = 9 }) => {
 const DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 const DIGITS_COUNT = DIGITS.length;
 
-const fontHeight = 300;
-let speed = 1000;
+const fontHeight = 200;
+let speed = 600;
 
 const createDigitRoutlette = (originX = 0) => {
   const targetIndex = 5;
@@ -72,7 +72,7 @@ const createDigitRoutlette = (originX = 0) => {
     if (speed <= 0) {
       speed = 0;
     }
-    pathY += (speed / 10) | 0;
+    pathY += (speed / 20) | 0;
     const blur = (speed / 100) | 0;
     const offset = fontHeight / 2;
     y = (pathY + offset) % (HEIGHT / 2);
