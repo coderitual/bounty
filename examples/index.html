@@ -19,14 +19,17 @@
   </style>
 </head>
 <body>
-  <svg xmlns="http://www.w3.org/2000/svg">
+  <svg xmlns="http://www.w3.org/2000/svg" width="600" height="400">
     <defs>
       <filter id="blurMe">
-        <feGaussianBlur class="blurValues" in="SourceGraphic" stdDeviation="0,4" />
+        <feGaussianBlur class="blurValues" in="SourceGraphic" stdDeviation="0,10" />
       </filter>
     </defs>
-    <text x="10" y="20" style="filter: url('#blurMe')">
-      SVG text styling test test test
+    <text x="10" y="100" style="fill: #fff;
+                                font-size: 85px;
+                                text-shadow: 2px 2px 10px rgba(0,0,0,.5);
+                                filter: url('#blurMe')">
+      £40,000,000
     </text>
   </svg>
   <script src="/odoo.js"></script>
