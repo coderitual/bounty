@@ -19,6 +19,16 @@
   </style>
 </head>
 <body>
+  <svg xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="blurMe">
+        <feGaussianBlur class="blurValues" in="SourceGraphic" stdDeviation="0,4" />
+      </filter>
+    </defs>
+    <text x="10" y="20" style="filter: url('#blurMe')">
+      SVG text styling test test test
+    </text>
+  </svg>
   <script src="/odoo.js"></script>
 </body>
 </html>

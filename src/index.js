@@ -1,3 +1,13 @@
+const SVG_NS = 'http://www.w3.org/2000/svg';
+
+const loop = (func) => {
+  const step = (timestamp) => {
+    requestAnimationFrame(step);
+    func(timestamp);
+  };
+  return { start: () => step(0) };
+};
+
 const rotate = (index, max) => {
   if (index < 0) {
     return max + index;
@@ -18,15 +28,8 @@ const createDigitRoutlette = () => {
 
 const digit = createDigitRoutlette();
 
-const update = () => {
-};
+const update = (timestamp) => {
 
-const loop = (func) => {
-  const step = (timestamp) => {
-    requestAnimationFrame(step);
-    func(timestamp);
-  };
-  return { start: step };
 };
 
 loop(update).start();
