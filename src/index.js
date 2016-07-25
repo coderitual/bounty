@@ -1,6 +1,6 @@
 const rotate = (index, max) => {
   if (index < 0) {
-    return max + (index);
+    return max + index;
   } else if (index >= max) {
     return index % (max);
   }
@@ -21,9 +21,12 @@ const digit = createDigitRoutlette();
 const update = () => {
 };
 
-const loop = () => {
-  requestAnimationFrame(loop);
-  update();
+const loop = (func) => {
+  const step = (timestamp) => {
+    requestAnimationFrame(step);
+    func(timestamp);
+  };
+  return { start: step };
 };
 
-loop();
+loop(update).start();
