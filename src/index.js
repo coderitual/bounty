@@ -5,16 +5,16 @@ const svg = select('.js-odoo')::append('svg')
   ::attr('width', 400)
   ::attr('height', 300);
 
-const defs = svg::append("defs");
+const defs = svg::append('defs');
 
-defs::append("filter")
-	::attr("id", "motionFilter")
-	::attr("width", "300%")
-	::attr("x", "-100%")
-	::append("feGaussianBlur")
-	::attr("class", "blurValues")
-	::attr("in", "SourceGraphic")
-	::attr("stdDeviation", "0 8");
+defs::append('filter')
+	::attr('id', 'motionFilter')
+	::attr('width', '300%')
+	::attr('x', '-100%')
+	::append('feGaussianBlur')
+	::attr('class', 'blurValues')
+	::attr('in', 'SourceGraphic')
+	::attr('stdDeviation', '0 1');
 
 const letter = svg::append('text')
   ::attr('y', 100)
@@ -26,6 +26,7 @@ const letter = svg::append('text')
 
 const update = (timestamp) => {
   letter::attr('transform', `translate(0, ${timestamp / 100})`);
+  select('#motionFilter .blurValues')::attr('stdDeviation', `0 ${timestamp / 100}`);
 };
 
 loop(update).start();
