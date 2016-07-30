@@ -25,8 +25,11 @@ const letter = svg::append('text')
   ::text('0')
 
 const update = (timestamp) => {
-  letter::attr('transform', `translate(0, ${timestamp / 100})`);
-  select('#motionFilter .blurValues')::attr('stdDeviation', `0 ${timestamp / 100}`);
+  letter
+    ::attr('transform', `translate(0, ${timestamp / 100})`)
+    ::text(timestamp);
+  select('#motionFilter .blurValues')
+    ::attr('stdDeviation', `0 ${timestamp / 1000}`);
 };
 
 loop(update).start();
