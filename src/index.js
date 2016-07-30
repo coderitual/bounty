@@ -1,38 +1,19 @@
 import loop from './loop';
-import namespaces from './namespaces';
+import { select, append, attr, style, text } from './selection';
 
-const DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+const svg = select('.js-odoo')::append('svg')
+  ::attr('width', 400)
+  ::attr('height', 300);
 
-const createDigitRoutlette = () => {
-  const update = () => {
-  };
-
-  return { update };
-};
-
-const digit = createDigitRoutlette();
-
-// example
-
-const container = document.querySelector('.js-odoo');
-const svg = document.createElementNS(namespaces.svg, 'svg');
-svg.setAttribute('width', 400);
-svg.setAttribute('height', 300);
-container.appendChild(svg);
-
-const letter = document.createElementNS(namespaces.svg, 'text');
-letter.setAttribute('y', 100);
-letter.style = `fill: #fff;
-                font-size: 85px;
-                text-shadow: 2px 2px 10px rgba(0,0,0,.5);
-                filter: url('#blurMe')"`;
-
-const textNode = document.createTextNode('0');
-letter.appendChild(textNode);
-svg.appendChild(letter);
+const letter = svg::append('text')
+  ::attr('y', 100)
+  ::style('fill', '#fff')
+  ::style('font-size', '85px')
+  ::style('text-shadow', '2px 2px 10px rgba(0, 0, 0, 0.5)')
+  ::text('0')
 
 const update = (timestamp) => {
-  letter.setAttribute('transform', `translate(0, ${timestamp / 100})`);
+  letter::attr('transform', `translate(0, ${timestamp / 100})`);
 };
 
 loop(update).start();
