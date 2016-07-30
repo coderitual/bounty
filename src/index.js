@@ -6,11 +6,10 @@ const createDigitRoulette = (svg) => {
   const roulette = svg::append('g');
   digits.forEach((el, i) => {
     roulette::append('text')
-      ::attr('y', i * 85)
+      ::attr('y', i * 100)
       ::style('fill', '#fff')
       ::style('font-size', '85px')
       ::style('text-shadow', '2px 2px 10px rgba(0, 0, 0, 0.5)')
-      ::style('filter', 'url(#motionFilter)')
       ::text(el)
   });
   return roulette;
@@ -31,7 +30,8 @@ defs::append('filter')
 	::attr('in', 'SourceGraphic')
 	::attr('stdDeviation', '0 1');
 
-const digit = createDigitRoulette(svg);
+const digit = createDigitRoulette(svg)
+  ::style('filter', 'url(#motionFilter)')
 
 const update = (timestamp) => {
   digit
