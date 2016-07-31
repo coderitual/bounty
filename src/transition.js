@@ -5,6 +5,7 @@ export default ({
   from,
   to,
   duration = 3000,
+  delay = 0,
   easing = cubicInOut,
   start = (v) => v,
   step = (v) => v,
@@ -21,7 +22,7 @@ export default ({
       startTime = timestamp;
       start(value);
     }
-    const t = Math.min(timestamp - startTime, duration) / duration;
+    const t = Math.min(Math.max(timestamp - startTime - delay, 0), duration) / duration;
     value = easing(t) * (to - from) + from;
     step(value);
     if(t === 1) {
