@@ -1,17 +1,19 @@
 import loop from './loop';
 import { select, append, attr, style, text } from './selection';
 
-const fontHeight = 85;
-const height = 100;
+const fontSize = 150;
+const lineHeight = fontSize;
+const marginBottom = 5;
+const digits = 10;
 
 const createDigitRoulette = (svg) => {
   const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
   const roulette = svg::append('g');
   digits.forEach((el, i) => {
     roulette::append('text')
-      ::attr('y', -i * height)
+      ::attr('y', -i * fontSize)
       ::style('fill', '#fff')
-      ::style('font-size', `${fontHeight}px`)
+      ::style('font-size', `${fontSize}px`)
       ::text(el)
   });
   return roulette;
@@ -19,7 +21,7 @@ const createDigitRoulette = (svg) => {
 
 const svg = select('.js-odoo')::append('svg')
   ::attr('width', 800)
-  ::attr('height', height);
+  ::attr('height', lineHeight);
 
 const defs = svg::append('defs');
 
@@ -36,8 +38,8 @@ const digit = createDigitRoulette(svg)
   ::style('filter', 'url(#motionFilter)')
 
 const update = (timestamp) => {
-  const offset = fontHeight + (height - fontHeight) / 2;
-  const y = offset + 0 / 10 % 1000;
+  const offset = lineHeight - marginBottom;
+  const y = offset + timestamp / 10 % (lineHeight * digits);
   digit::attr('transform', `translate(0, ${y})`)
   //select('#motionFilter .blurValues')::attr('stdDeviation', `0 ${timestamp / 1000}`);
 };
