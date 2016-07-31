@@ -3,6 +3,7 @@ import { select, append, attr, style, text } from './selection';
 import transition from './transition';
 
 const DIGITS_COUNT = 10;
+const ROTATIONS = 3;
 
 const createDigitRoulette = (svg, fontSize, id) => {
   const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
@@ -27,12 +28,13 @@ const createFilter = (defs, id) => defs::append('filter')
 	::attr('in', 'SourceGraphic')
 	::attr('stdDeviation', '0 0');
 
-export default function({el, value}) {
+export default function({ el, value }) {
   const element = select(el);
   const computedStyle = window.getComputedStyle(element);
   const fontSize = parseInt(computedStyle.fontSize, 10);
   const marginBottom = fontSize / 10;
   const offset = fontSize - marginBottom;
+  const letterSpacing = 1.3;
 
   let canvasWidth = 0;
   const canvasHeight = fontSize;
@@ -44,15 +46,15 @@ export default function({el, value}) {
   const digits = values.map((digit, i) => ({
     node: createDigitRoulette(svg, fontSize, i),
     filter: createFilter(defs, i),
-    value: digit
+    value: digit,
+    offset: { x: 0, y: offset }
   }));
 
   digits.forEach(digit => {
     const { width } = digit.node.getBoundingClientRect();
-    digit.node
-      ::attr('x', canvasWidth)
-      ::attr('transform', `translate(0, ${offset})`);
-    canvasWidth += width;
+    digit.offset.x = canvasWidth;
+    digit.node::attr('transform', `translate(${digit.offset.x}, ${digit.offset.y})`);
+    canvasWidth += width * letterSpacing;
   });
 
   svg::attr('width', canvasWidth)
@@ -61,19 +63,19 @@ export default function({el, value}) {
     ::style('overflow', 'hidden');
 
   const transitions = [];
-
-  const targetDistance = 37 * fontSize;
-  const digitTransition = transition({
-    from: 0,
-    to: targetDistance,
-    step(v) {
-      const y = offset + v % (fontSize * DIGITS_COUNT);
-      digit::attr('transform', `translate(0, ${y})`);
-      const filterOrigin = targetDistance / 2;
-      const motionValue = Math.abs(Math.abs(v - filterOrigin) - filterOrigin) / 100;
-      console.log(motionValue)
-      select('#motionFilter .blurValues')::attr('stdDeviation', `0 ${motionValue}`);
-    }
+  digits.forEach((digit, id) => {
+    const targetDistance = (ROTATIONS * DIGITS_COUNT + digit.value) * fontSize;
+    const digitTransition = transition({
+      from: 0,
+      to: targetDistance,
+      step(value) {
+        const y = digit.offset.y + value % (fontSize * DIGITS_COUNT);
+        digit.node::attr('transform', `translate(${digit.offset.x}, ${y})`);
+        const filterOrigin = targetDistance / 2;
+        const motionValue = Math.abs(Math.abs(value - filterOrigin) - filterOrigin) / 100;
+      }
+    });
+    transitions.push(digitTransition);
   });
 
   const update = (timestamp) => {
