@@ -1,11 +1,12 @@
 import loop from './loop';
 import { select, append, attr, style, text } from './selection';
 
-const width = 800;
-const fontSize = 85;
-const height = fontSize;
-const marginBottom = 10;
+const fontSize = 150;
+const marginBottom = fontSize / 10;
 const digits = 10;
+
+const width = 800;
+const height = fontSize;
 
 const createDigitRoulette = (svg) => {
   const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
