@@ -4,7 +4,7 @@ const linear = t => +t;
 export default ({
   from,
   to,
-  duration = 4000,
+  duration = 3000,
   easing = cubicInOut,
   start = (v) => v,
   step = (v) => v,
