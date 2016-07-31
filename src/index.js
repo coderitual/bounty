@@ -2,9 +2,9 @@ import loop from './loop';
 import { select, append, attr, style, text } from './selection';
 
 const width = 800;
-const fontSize = 150;
+const fontSize = 85;
 const height = fontSize;
-const marginBottom = 5;
+const marginBottom = 10;
 const digits = 10;
 
 const createDigitRoulette = (svg) => {
