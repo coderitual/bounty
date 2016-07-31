@@ -47,16 +47,13 @@ export default function({el, value}) {
     value: digit
   }));
 
-  digits.reduce((prev, current) => {
-    const { width } = current.node.getBoundingClientRect();
+  digits.forEach(digit => {
+    const { width } = digit.node.getBoundingClientRect();
+    digit.node
+      ::attr('x', canvasWidth)
+      ::attr('transform', `translate(0, ${offset})`);
     canvasWidth += width;
-    if(prev.node) {
-      current.node
-        ::attr('x', canvasWidth)
-        ::attr('transform', `translate(0, ${offset})`);
-    }
-    return current;
-  }, {});
+  });
 
   svg::attr('width', canvasWidth)
     ::attr('height', canvasHeight)
