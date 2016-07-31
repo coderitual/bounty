@@ -1,5 +1,6 @@
 import loop from './loop';
 import { select, append, attr, style, text } from './selection';
+import transition from './transition';
 
 const fontSize = 85;
 const marginBottom = fontSize / 10;
@@ -37,48 +38,6 @@ defs::append('filter')
 	::attr('class', 'blurValues')
 	::attr('in', 'SourceGraphic')
 	::attr('stdDeviation', '0 0');
-
-function cubicInOut(t) {
-  return ((t *= 2) <= 1 ? t * t * t : (t -= 2) * t * t + 2) / 2;
-}
-
-function linear(t) {
-  return +t;
-}
-
-const transition = ({
-  from,
-  to,
-  duration = 4000,
-  easing = cubicInOut,
-  start = (v) => v,
-  step = (v) => v,
-  end = (v) => v
-}) => {
-  let value = from;
-  let startTime = 0;
-  let finished = false;
-  const update = (timestamp) => {
-    if(finished) {
-      return;
-    }
-
-    if(!startTime) {
-      startTime = timestamp;
-      start(value);
-    }
-    const t = Math.min(timestamp - startTime, duration) / duration;
-    value = easing(t) * (to - from) + from;
-    step(value);
-
-    if(t === 1) {
-      finished = true;
-      end(value);
-    }
-
-  }
-  return { update };
-};
 
 const digit = createDigitRoulette(svg)
   ::style('filter', 'url(#motionFilter)');
