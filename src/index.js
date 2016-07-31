@@ -46,7 +46,7 @@ const targetDistance = 37 * fontSize;
 const digitTransition = transition({
   from: 0,
   to: targetDistance,
-  step: (v) => {
+  step(v) {
     const offset = fontSize - marginBottom;
     const y = offset + v % (fontSize * digits);
     digit::attr('transform', `translate(0, ${y})`);
