@@ -34,10 +34,8 @@ const digit = createDigitRoulette(svg)
   ::style('filter', 'url(#motionFilter)')
 
 const update = (timestamp) => {
-  digit
-    ::attr('transform', `translate(0, ${(timestamp / 10) % 1000})`)
-  select('#motionFilter .blurValues')
-    ::attr('stdDeviation', `0 ${timestamp / 1000}`);
+  digit::attr('transform', `translate(0, ${(timestamp / 10) % 1000})`)
+  select('#motionFilter .blurValues')::attr('stdDeviation', `0 ${timestamp / 1000}`);
 };
 
 loop(update).start();
