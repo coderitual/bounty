@@ -34,7 +34,7 @@ export default function({ el, value }) {
   const fontSize = parseInt(computedStyle.fontSize, 10);
   const marginBottom = fontSize / 10;
   const offset = fontSize - marginBottom;
-  const letterSpacing = 1.3;
+  const letterSpacing = 1.35;
   const animationDelay = 100;
 
   let canvasWidth = 0;
