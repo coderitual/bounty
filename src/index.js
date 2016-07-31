@@ -1,8 +1,9 @@
 import loop from './loop';
 import { select, append, attr, style, text } from './selection';
 
+const width = 800;
 const fontSize = 150;
-const lineHeight = fontSize;
+const height = fontSize;
 const marginBottom = 5;
 const digits = 10;
 
@@ -20,8 +21,10 @@ const createDigitRoulette = (svg) => {
 };
 
 const svg = select('.js-odoo')::append('svg')
-  ::attr('width', 800)
-  ::attr('height', lineHeight);
+  ::attr('width', width)
+  ::attr('height', height)
+  ::attr('viewBox', `0 0 ${width} ${height}`)
+  ::style('overflow', 'hidden')
 
 const defs = svg::append('defs');
 
@@ -38,8 +41,8 @@ const digit = createDigitRoulette(svg)
   ::style('filter', 'url(#motionFilter)')
 
 const update = (timestamp) => {
-  const offset = lineHeight - marginBottom;
-  const y = offset + timestamp / 10 % (lineHeight * digits);
+  const offset = height - marginBottom;
+  const y = offset + 0 / 1 % (height * digits);
   digit::attr('transform', `translate(0, ${y})`)
   //select('#motionFilter .blurValues')::attr('stdDeviation', `0 ${timestamp / 1000}`);
 };
