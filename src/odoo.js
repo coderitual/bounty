@@ -35,6 +35,7 @@ export default function({ el, value }) {
   const marginBottom = fontSize / 10;
   const offset = fontSize - marginBottom;
   const letterSpacing = 1.3;
+  const animationDelay = 100;
 
   let canvasWidth = 0;
   const canvasHeight = fontSize;
@@ -63,16 +64,18 @@ export default function({ el, value }) {
     ::style('overflow', 'hidden');
 
   const transitions = [];
-  digits.forEach((digit, id) => {
+  digits.forEach((digit, i) => {
     const targetDistance = (ROTATIONS * DIGITS_COUNT + digit.value) * fontSize;
     const digitTransition = transition({
       from: 0,
       to: targetDistance,
+      delay: (digits.length - i) * animationDelay,
       step(value) {
         const y = digit.offset.y + value % (fontSize * DIGITS_COUNT);
         digit.node::attr('transform', `translate(${digit.offset.x}, ${y})`);
         const filterOrigin = targetDistance / 2;
         const motionValue = Math.abs(Math.abs(value - filterOrigin) - filterOrigin) / 100;
+        select(`#motionFilter-${i} .blurValues`)::attr('stdDeviation', `0 ${motionValue}`);
       }
     });
     transitions.push(digitTransition);
