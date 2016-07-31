@@ -1,12 +1,12 @@
 import loop from './loop';
 import { select, append, attr, style, text } from './selection';
 
-const fontSize = 150;
+const fontSize = 85;
 const marginBottom = fontSize / 10;
 const digits = 10;
 
 const width = 800;
-const height = fontSize + 100;
+const height = fontSize;
 
 const createDigitRoulette = (svg) => {
   const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
@@ -46,29 +46,60 @@ function linear(t) {
   return +t;
 }
 
-const transition = ({ from, to, duration = 1000, easing = cubicInOut }) => {
+const transition = ({
+  from,
+  to,
+  duration = 4000,
+  easing = cubicInOut,
+  start = (v) => v,
+  step = (v) => v,
+  end = (v) => v
+}) => {
   let value = from;
   let startTime = 0;
-
+  let finished = false;
   const update = (timestamp) => {
-    if(!startTime) {
-      startTime - timestamp;
+    if(finished) {
+      return;
     }
-    const t = Math.min(timestamp - startTime, duration) / 1000;
-    value = easing(t);
-  }
 
+    if(!startTime) {
+      startTime = timestamp;
+      start(value);
+    }
+    const t = Math.min(timestamp - startTime, duration) / duration;
+    value = easing(t) * (to - from) + from;
+    step(value);
+
+    if(t === 1) {
+      finished = true;
+      end(value);
+    }
+
+  }
   return { update };
 };
 
 const digit = createDigitRoulette(svg)
-  ::style('filter', 'url(#motionFilter)')
+  ::style('filter', 'url(#motionFilter)');
+
+const targetDistance = 37 * fontSize;
+const digitTransition = transition({
+  from: 0,
+  to: targetDistance,
+  step: (v) => {
+    const offset = fontSize - marginBottom;
+    const y = offset + v % (fontSize * digits);
+    digit::attr('transform', `translate(0, ${y})`);
+    const filterOrigin = targetDistance / 2;
+    const motionValue = Math.abs(Math.abs(v - filterOrigin) - filterOrigin) / 100;
+    console.log(motionValue)
+    select('#motionFilter .blurValues')::attr('stdDeviation', `0 ${motionValue}`);
+  }
+});
 
 const update = (timestamp) => {
-  const offset = fontSize - marginBottom;
-  const y = offset + timestamp / 1 % (fontSize * digits);
-  digit::attr('transform', `translate(0, ${y})`)
-  //select('#motionFilter .blurValues')::attr('stdDeviation', `0 ${timestamp / 1000}`);
+  digitTransition.update(timestamp);
 };
 
 loop(update).start();
