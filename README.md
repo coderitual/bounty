@@ -1,1 +1,1 @@
-Canvas 2d odometer effect
+Crazy SVG odometer effect library.
