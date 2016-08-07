@@ -76,15 +76,6 @@ export default function ({ el, value }) {
     }
   });
 
-  chars.forEach(char => {
-    const { width } = char.node.getBoundingClientRect();
-    char.offset.x = canvasWidth;
-    char.node::attr('transform', `translate(${char.offset.x}, ${char.offset.y})`);
-    canvasWidth += width * letterSpacing;
-  });
-
-  setViewBox(svg, canvasWidth, canvasHeight);
-
   const transitions = [];
   const digits = chars.filter(char => char.isDigit);
   console.log(chars, digits)
