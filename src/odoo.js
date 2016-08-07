@@ -19,6 +19,12 @@ const createDigitRoulette = (svg, fontSize, id) => {
   return roulette;
 };
 
+const createCharacter = (svg, el, fontSize) => svg
+  ::append('text')
+  ::style('fill', '#fff')
+  ::style('font-size', `${fontSize}px`)
+  ::text(el);
+
 const createFilter = (defs, id) => defs::append('filter')
 	::attr('id', `motionFilter-${id}`)
 	::attr('width', '300%')
@@ -28,42 +34,51 @@ const createFilter = (defs, id) => defs::append('filter')
 	::attr('in', 'SourceGraphic')
 	::attr('stdDeviation', '0 0');
 
-export default function({ el, value }) {
+const setViewBox = (svg, width, height) => svg
+  ::attr('width', width)
+  ::attr('height', height)
+  ::attr('viewBox', `0 0 ${width} ${height}`)
+  ::style('overflow', 'hidden');
+
+export default function ({ el, value }) {
   const element = select(el);
   const computedStyle = window.getComputedStyle(element);
   const fontSize = parseInt(computedStyle.fontSize, 10);
   const marginBottom = fontSize / 10;
   const offset = fontSize - marginBottom;
-  const letterSpacing = 1.35;
+  const letterSpacing = 1;
   const animationDelay = 100;
 
   let canvasWidth = 0;
-  const canvasHeight = fontSize;
+  const canvasHeight = fontSize + marginBottom;
 
   const svg = select(el)::append('svg')
   const defs = svg::append('defs');
 
-  const values = String(value).split('').map(value => parseInt(value, 10));
-  const digits = values.map((digit, i) => ({
-    node: createDigitRoulette(svg, fontSize, i),
-    filter: createFilter(defs, i),
-    value: digit,
-    offset: { x: 0, y: offset }
-  }));
-
-  digits.forEach(digit => {
-    const { width } = digit.node.getBoundingClientRect();
-    digit.offset.x = canvasWidth;
-    digit.node::attr('transform', `translate(${digit.offset.x}, ${digit.offset.y})`);
-    canvasWidth += width * letterSpacing;
+  const values = String(value).split('');
+  const chars = values.map((char, i) => {
+    if(isNaN(char)) {
+      return {
+        isDigit: false,
+        node: createCharacter(svg, char, fontSize),
+        value: char,
+        offset: { x: 0, y: offset }
+      };
+    } else {
+      return {
+        isDigit: true,
+        id: i,
+        node: createDigitRoulette(svg, fontSize, i),
+        filter: createFilter(defs, i),
+        value: Number(char),
+        offset: { x: 0, y: offset }
+      };
+    }
   });
 
-  svg::attr('width', canvasWidth)
-    ::attr('height', canvasHeight)
-    ::attr('viewBox', `0 0 ${canvasWidth} ${canvasHeight}`)
-    ::style('overflow', 'hidden');
-
   const transitions = [];
+  const digits = chars.filter(char => char.isDigit);
+  console.log(chars, digits)
   digits.forEach((digit, i) => {
     const targetDistance = (ROTATIONS * DIGITS_COUNT + digit.value) * fontSize;
     const digitTransition = transition({
@@ -71,20 +86,28 @@ export default function({ el, value }) {
       to: targetDistance,
       delay: (digits.length - i) * animationDelay,
       step(value) {
-        const y = digit.offset.y + value % (fontSize * DIGITS_COUNT);
-        digit.node::attr('transform', `translate(${digit.offset.x}, ${y})`);
+        digit.offset.y = offset + value % (fontSize * DIGITS_COUNT);
+        digit.node::attr('transform', `translate(${digit.offset.x}, ${digit.offset.y})`);
         const filterOrigin = targetDistance / 2;
         const motionValue = Math.abs(Math.abs(value - filterOrigin) - filterOrigin) / 100;
-        select(`#motionFilter-${i} .blurValues`)::attr('stdDeviation', `0 ${motionValue}`);
+        select(`#motionFilter-${digit.id} .blurValues`)::attr('stdDeviation', `0 ${motionValue}`);
       }
     });
     transitions.push(digitTransition);
   });
 
   const update = (timestamp) => {
+    let canvasWidth = 0;
+    chars.forEach(char => {
+      const { width } = char.node.getBoundingClientRect();
+      char.offset.x = canvasWidth;
+      char.node::attr('transform', `translate(${char.offset.x}, ${char.offset.y})`);
+      canvasWidth += width + letterSpacing;
+    });
+
+    setViewBox(svg, canvasWidth, canvasHeight);
     transitions.forEach(transition => transition.update(timestamp));
   };
 
   loop(update).start();
-
 };
