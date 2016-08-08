@@ -97,12 +97,15 @@ export default function ({ el, value }) {
   });
 
   const update = (timestamp) => {
-    let canvasWidth = 0;
+    canvasWidth = 0;
     chars.forEach(char => {
       const { width } = char.node.getBoundingClientRect();
       char.offset.x = canvasWidth;
-      char.node::attr('transform', `translate(${char.offset.x}, ${char.offset.y})`);
       canvasWidth += width + letterSpacing;
+    });
+
+    chars.forEach(char => {
+      char.node::attr('transform', `translate(${char.offset.x}, ${char.offset.y})`);
     });
 
     setViewBox(svg, canvasWidth, canvasHeight);
