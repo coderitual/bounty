@@ -30,9 +30,44 @@ const createFilter = (defs, id) => defs::append('filter')
 	::attr('width', '300%')
 	::attr('x', '-100%')
 	::append('feGaussianBlur')
-	::attr('class', 'blurValues')
-	::attr('in', 'SourceGraphic')
-	::attr('stdDeviation', '0 0');
+    ::attr('class', 'blurValues')
+    ::attr('in', 'SourceGraphic')
+    ::attr('stdDeviation', '0 0');
+
+const createGradient = (defs) => defs::append('linearGradient')
+  ::attr('id', 'gradient')
+  ::attr('x1', '0%')
+  ::attr('y1', '0%')
+  ::attr('x2', '0%')
+  ::attr('y2', '100%')
+  ::append('stop')
+    ::attr('offset', '0')
+    ::attr('stop-color', 'white')
+    ::attr('stop-opacity', '0')
+  ::select('#gradient')
+  ::append('stop')
+    ::attr('offset', '0.2')
+    ::attr('stop-color', 'white')
+    ::attr('stop-opacity', '1')
+  ::select('#gradient')
+  ::append('stop')
+    ::attr('offset', '0.8')
+    ::attr('stop-color', 'white')
+    ::attr('stop-opacity', '1')
+  ::select('#gradient')
+  ::append('stop')
+    ::attr('offset', '1')
+    ::attr('stop-color', 'white')
+    ::attr('stop-opacity', '0');
+
+const createMask = (defs) => defs::append('mask')
+  ::attr('id', 'mask')
+  ::append('rect')
+  ::attr('x', 0)
+  ::attr('y', 0)
+  ::attr('width', '100%')
+  ::attr('height', '100%')
+  ::attr('fill', 'url(#gradient)');
 
 const setViewBox = (svg, width, height) => svg
   ::attr('width', width)
@@ -52,8 +87,10 @@ export default function ({ el, value }) {
   let canvasWidth = 0;
   const canvasHeight = fontSize + marginBottom;
 
-  const svg = select(el)::append('svg')
+  const svg = select(el)::append('svg')::attr('mask', 'url(#mask)')
   const defs = svg::append('defs');
+  createGradient(defs);
+  createMask(defs);
 
   const values = String(value).split('');
   const chars = values.map((char, i) => {
