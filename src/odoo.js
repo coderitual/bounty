@@ -5,12 +5,12 @@ import transition from './transition';
 const DIGITS_COUNT = 10;
 const ROTATIONS = 3;
 
-const createDigitRoulette = (svg, fontSize, id) => {
+const createDigitRoulette = (svg, fontSize, lineHeight, id) => {
   const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
   const roulette = svg::append('g')::attr('id', `digit-${id}`);
   digits.forEach((el, i) => {
     roulette::append('text')
-      ::attr('y', -i * fontSize)
+      ::attr('y', -i * fontSize * lineHeight)
       ::style('fill', '#fff')
       ::style('font-size', `${fontSize}px`)
       ::style('filter', `url(#motionFilter-${id})`)
@@ -79,13 +79,14 @@ export default function ({ el, value }) {
   const element = select(el);
   const computedStyle = window.getComputedStyle(element);
   const fontSize = parseInt(computedStyle.fontSize, 10);
-  const marginBottom = fontSize / 10;
-  const offset = fontSize - marginBottom;
+  const lineHeight = 1.35;
+  const marginBottom = (fontSize * lineHeight - fontSize) / 2 + fontSize / 10;
+  const offset = fontSize * lineHeight - marginBottom;
   const letterSpacing = 1;
   const animationDelay = 100;
 
   let canvasWidth = 0;
-  const canvasHeight = fontSize + marginBottom;
+  const canvasHeight = fontSize * lineHeight + marginBottom;
 
   const svg = select(el)::append('svg')::attr('mask', 'url(#mask)')
   const defs = svg::append('defs');
@@ -105,7 +106,7 @@ export default function ({ el, value }) {
       return {
         isDigit: true,
         id: i,
-        node: createDigitRoulette(svg, fontSize, i),
+        node: createDigitRoulette(svg, fontSize, lineHeight, i),
         filter: createFilter(defs, i),
         value: Number(char),
         offset: { x: 0, y: offset }
@@ -117,13 +118,13 @@ export default function ({ el, value }) {
   const digits = chars.filter(char => char.isDigit);
   console.log(chars, digits)
   digits.forEach((digit, i) => {
-    const targetDistance = (ROTATIONS * DIGITS_COUNT + digit.value) * fontSize;
+    const targetDistance = (ROTATIONS * DIGITS_COUNT + digit.value) * (fontSize * lineHeight);
     const digitTransition = transition({
       from: 0,
       to: targetDistance,
       delay: (digits.length - i) * animationDelay,
       step(value) {
-        digit.offset.y = offset + value % (fontSize * DIGITS_COUNT);
+        digit.offset.y = offset + value % ((fontSize * lineHeight) * DIGITS_COUNT);
         digit.node::attr('transform', `translate(${digit.offset.x}, ${digit.offset.y})`);
         const filterOrigin = targetDistance / 2;
         const motionValue = Math.abs(Math.abs(value - filterOrigin) - filterOrigin) / 100;
