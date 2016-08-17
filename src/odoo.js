@@ -76,15 +76,19 @@ const setViewBox = (svg, width, height) => svg
   ::attr('viewBox', `0 0 ${width} ${height}`)
   ::style('overflow', 'hidden');
 
-export default function ({ el, value }) {
+export default ({
+  el,
+  value,
+  lineHeight = 1.35,
+  letterSpacing = 1,
+  animationDelay = 100,
+  letterAnimationDelay = 100
+}) => {
   const element = select(el);
   const computedStyle = window.getComputedStyle(element);
   const fontSize = parseInt(computedStyle.fontSize, 10);
-  const lineHeight = 1.35;
   const marginBottom = (fontSize * lineHeight - fontSize) / 2 + fontSize / 10;
   const offset = fontSize * lineHeight - marginBottom;
-  const letterSpacing = 1;
-  const animationDelay = 100;
 
   let canvasWidth = 0;
   const canvasHeight = fontSize * lineHeight + marginBottom;
@@ -124,7 +128,7 @@ export default function ({ el, value }) {
     const digitTransition = transition({
       from: 0,
       to: targetDistance,
-      delay: (digits.length - i) * animationDelay,
+      delay: (digits.length - 1 - i) * letterAnimationDelay + animationDelay,
       step(value) {
         digit.offset.y = offset + value % ((fontSize * lineHeight) * DIGITS_COUNT);
         digit.node::attr('transform', `translate(${digit.offset.x}, ${digit.offset.y})`);
