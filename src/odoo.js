@@ -139,7 +139,7 @@ export default function ({ el, value }) {
   const update = (timestamp) => {
     canvasWidth = 0;
     chars.forEach(char => {
-      const { width } = char.node.getBoundingClientRect();
+      const { width } = char.node.getBBox();
       char.offset.x = canvasWidth;
       canvasWidth += width + letterSpacing;
     });
