@@ -20,6 +20,7 @@ const createDigitRoulette = (svg, fontSize, lineHeight, id) => {
 };
 
 const createCharacter = (svg, el, fontSize) => svg
+  ::append('g')
   ::append('text')
   ::style('fill', '#fff')
   ::style('font-size', `${fontSize}px`)
@@ -88,8 +89,10 @@ export default function ({ el, value }) {
   let canvasWidth = 0;
   const canvasHeight = fontSize * lineHeight + marginBottom;
 
-  const svg = select(el)::append('svg')::attr('mask', 'url(#mask)')
-  const defs = svg::append('defs');
+  element.innerHTML = '';
+  const root = element::append('svg');
+  const svg = root::append('svg')::attr('mask', 'url(#mask)')
+  const defs = root::append('defs');
   createGradient(defs);
   createMask(defs);
 
@@ -116,7 +119,6 @@ export default function ({ el, value }) {
 
   const transitions = [];
   const digits = chars.filter(char => char.isDigit);
-  console.log(chars, digits)
   digits.forEach((digit, i) => {
     const targetDistance = (ROTATIONS * DIGITS_COUNT + digit.value) * (fontSize * lineHeight);
     const digitTransition = transition({
@@ -146,7 +148,7 @@ export default function ({ el, value }) {
       char.node::attr('transform', `translate(${char.offset.x}, ${char.offset.y})`);
     });
 
-    setViewBox(svg, canvasWidth, canvasHeight);
+    setViewBox(root, canvasWidth, canvasHeight);
     transitions.forEach(transition => transition.update(timestamp));
   };
 
