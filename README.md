@@ -1,12 +1,12 @@
 Odoo: SVG Odomoter Effect Library
 ======
-Crazy SVG odometer effect library. Library uses functional approach and ES7 Function Bind Syntax. Api inspired by d3.js library.
+Crazy SVG odometer effect library. Library uses functional approach and ES7 Function Bind Syntax. Internals strongly inspired by d3.js library.
 
 [Demo](https://coderitual.github.io/odoo/examples/)
 
 Examples
 ======
-The API is really simple and straithforward:
+The API is really simple and straigthforward:
 ```js
 odoo.default({ el: '.js-odoo', value: '£42,000,000' });
 ```
