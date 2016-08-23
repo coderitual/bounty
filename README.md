@@ -25,4 +25,4 @@ odoo.default({
 
 That's it?
 =====
-Yea! That's it. Other options like `font-family` and `font-size` is taken from **computed styles** so you can just style it like the other layers.
+Yea! That's it. Other options like `font-family` and `font-size` are taken from **computed styles** so you can just style it like the other layers.
