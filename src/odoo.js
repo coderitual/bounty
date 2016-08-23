@@ -100,9 +100,12 @@ export default ({
   createGradient(defs);
   createMask(defs);
 
-  const values = String(value).split('');
+  const values = String(value)
+    .replace(/ /g, '\u00a0')
+    .split('');
+
   const chars = values.map((char, i) => {
-    if(isNaN(char)) {
+    if(isNaN(parseInt(char, 10))) {
       return {
         isDigit: false,
         node: createCharacter(svg, char, fontSize),
