@@ -16,10 +16,10 @@ You can use it with other **options**:
 odoo.default({
   el: '.js-odoo',
   value: '£42,000,000',
-  lineHeight = 1.35,
-  letterSpacing = 1,
-  animationDelay = 100,
-  letterAnimationDelay = 100
+  lineHeight: 1.35,
+  letterSpacing: 1,
+  animationDelay: 100,
+  letterAnimationDelay: 100
 });
 ```
 
