@@ -159,5 +159,5 @@ export default ({
     transitions.forEach(transition => transition.update(timestamp));
   };
 
-  loop(update).start();
+  return loop(update);
 };

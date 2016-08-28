@@ -1,7 +1,9 @@
 export default (func) => {
+  let frame;
   const step = (timestamp) => {
-    requestAnimationFrame(step);
+    frame = requestAnimationFrame(step);
     func(timestamp);
   };
-  return { start: () => step(0) };
+  step(0);
+  return () => cancelAnimationFrame(frame);
 };
