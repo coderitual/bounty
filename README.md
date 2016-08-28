@@ -22,6 +22,11 @@ odoo.default({
   letterAnimationDelay: 100
 });
 ```
+If you want to **cancel** the ongoing animation just call returned function:
+```js
+const cancel = odoo.default({ el: '.js-odoo', value: '£42,000,000' });
+cancel();
+```
 
 That's it?
 =====
