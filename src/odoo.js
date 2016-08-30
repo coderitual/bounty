@@ -11,7 +11,6 @@ const createDigitRoulette = (svg, fontSize, lineHeight, id) => {
   digits.forEach((el, i) => {
     roulette::append('text')
       ::attr('y', -i * fontSize * lineHeight)
-      ::style('fill', '#fff')
       ::style('font-size', `${fontSize}px`)
       ::style('filter', `url(#motionFilter-${id})`)
       ::text(el);
@@ -22,7 +21,6 @@ const createDigitRoulette = (svg, fontSize, lineHeight, id) => {
 const createCharacter = (svg, el, fontSize) => svg
   ::append('g')
   ::append('text')
-  ::style('fill', '#fff')
   ::style('font-size', `${fontSize}px`)
   ::text(el);
 
