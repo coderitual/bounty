@@ -31,3 +31,11 @@ cancel();
 That's it?
 =====
 Yea! That's it. Other options like `font-family` and `font-size` are taken from **computed styles** so you can just style it like the other layers.
+```css
+.js-odoo {
+  font-size: 60px;
+  font-family: Roboto;
+  fill: #fff;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+```
