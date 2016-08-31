@@ -136,7 +136,8 @@ export default ({
         const filterOrigin = targetDistance / 2;
         const motionValue = Math.abs(Math.abs(value - filterOrigin) - filterOrigin) / 100;
         select(`#motionFilter-${digit.id} .blurValues`)::attr('stdDeviation', `0 ${motionValue}`);
-      }
+      },
+      end: i === 0 ? () => cancelAnimation() : (e) => e
     });
     transitions.push(digitTransition);
   });
@@ -157,5 +158,6 @@ export default ({
     transitions.forEach(transition => transition.update(timestamp));
   };
 
-  return loop(update);
+  const cancelAnimation = loop(update);
+  return cancelAnimation;
 };
