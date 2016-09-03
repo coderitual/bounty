@@ -10,7 +10,7 @@ const createDigitRoulette = (svg, fontSize, lineHeight, id) => {
   const roulette = svg::append('g')::attr('id', `digit-${id}`);
   digits.forEach((el, i) => {
     roulette::append('text')
-      ::attr('y', -i * fontSize * lineHeight)
+      ::attr('y', i * fontSize * lineHeight)
       ::style('font-size', `${fontSize}px`)
       ::style('filter', `url(#motionFilter-${id})`)
       ::text(el);
@@ -131,7 +131,7 @@ export default ({
       to: targetDistance,
       delay: (digits.length - 1 - i) * letterAnimationDelay + animationDelay,
       step(value) {
-        digit.offset.y = offset + value % ((fontSize * lineHeight) * DIGITS_COUNT);
+        digit.offset.y = offset - value % ((fontSize * lineHeight) * DIGITS_COUNT);
         digit.node::attr('transform', `translate(${digit.offset.x}, ${digit.offset.y})`);
         const filterOrigin = targetDistance / 2;
         const motionValue = Math.abs(Math.abs(value - filterOrigin) - filterOrigin) / 100;
