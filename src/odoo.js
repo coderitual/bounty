@@ -33,8 +33,8 @@ const createFilter = (defs, id) => defs::append('filter')
     ::attr('in', 'SourceGraphic')
     ::attr('stdDeviation', '0 0');
 
-const createGradient = (defs) => defs::append('linearGradient')
-  ::attr('id', 'gradient')
+const createGradient = (defs, id) => defs::append('linearGradient')
+  ::attr('id', `gradient-${id}`)
   ::attr('x1', '0%')
   ::attr('y1', '0%')
   ::attr('x2', '0%')
@@ -43,30 +43,30 @@ const createGradient = (defs) => defs::append('linearGradient')
     ::attr('offset', '0')
     ::attr('stop-color', 'white')
     ::attr('stop-opacity', '0')
-  ::select('#gradient')
+  ::select(`#gradient-${id}`)
   ::append('stop')
     ::attr('offset', '0.2')
     ::attr('stop-color', 'white')
     ::attr('stop-opacity', '1')
-  ::select('#gradient')
+  ::select(`#gradient-${id}`)
   ::append('stop')
     ::attr('offset', '0.8')
     ::attr('stop-color', 'white')
     ::attr('stop-opacity', '1')
-  ::select('#gradient')
+  ::select(`#gradient-${id}`)
   ::append('stop')
     ::attr('offset', '1')
     ::attr('stop-color', 'white')
     ::attr('stop-opacity', '0');
 
-const createMask = (defs) => defs::append('mask')
-  ::attr('id', 'mask')
+const createMask = (defs, id) => defs::append('mask')
+  ::attr('id', `mask-${id}`)
   ::append('rect')
   ::attr('x', 0)
   ::attr('y', 0)
   ::attr('width', '100%')
   ::attr('height', '100%')
-  ::attr('fill', 'url(#gradient)');
+  ::attr('fill', `url(#gradient-${id})`);
 
 const setViewBox = (svg, width, height) => svg
   ::attr('width', width)
@@ -87,22 +87,24 @@ export default ({
   const fontSize = parseInt(computedStyle.fontSize, 10);
   const marginBottom = (fontSize * lineHeight - fontSize) / 2 + fontSize / 10;
   const offset = fontSize * lineHeight - marginBottom;
+  const salt = Date.now();
 
   let canvasWidth = 0;
   const canvasHeight = fontSize * lineHeight + marginBottom;
 
   element.innerHTML = '';
   const root = element::append('svg');
-  const svg = root::append('svg')::attr('mask', 'url(#mask)')
+  const svg = root::append('svg')::attr('mask', `url(#mask-${salt})`)
   const defs = root::append('defs');
-  createGradient(defs);
-  createMask(defs);
+  createGradient(defs, salt);
+  createMask(defs, salt);
 
   const values = String(value)
     .replace(/ /g, '\u00a0')
     .split('');
 
   const chars = values.map((char, i) => {
+    const id = `${i}-${salt}`;
     if(isNaN(parseInt(char, 10))) {
       return {
         isDigit: false,
@@ -113,9 +115,9 @@ export default ({
     } else {
       return {
         isDigit: true,
-        id: i,
-        node: createDigitRoulette(svg, fontSize, lineHeight, i),
-        filter: createFilter(defs, i),
+        id: id,
+        node: createDigitRoulette(svg, fontSize, lineHeight, id),
+        filter: createFilter(defs, id),
         value: Number(char),
         offset: { x: 0, y: offset }
       };
