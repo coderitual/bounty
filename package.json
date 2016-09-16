@@ -1,6 +1,6 @@
 {
   "name": "odoo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Canvas2d odometer effect",
   "main": "src/index.js",
   "scripts": {
