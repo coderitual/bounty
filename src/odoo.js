@@ -7,12 +7,13 @@ const ROTATIONS = 3;
 
 const createDigitRoulette = (svg, fontSize, lineHeight, id) => {
   const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-  const roulette = svg::append('g')::attr('id', `digit-${id}`);
+  const roulette = svg::append('g')
+    ::attr('id', `digit-${id}`)
+    ::style('filter', `url(#motionFilter-${id})`);
+
   digits.forEach((el, i) => {
     roulette::append('text')
       ::attr('y', -i * fontSize * lineHeight)
-      ::style('font-size', `${fontSize}px`)
-      ::style('filter', `url(#motionFilter-${id})`)
       ::text(el);
   });
   return roulette;
@@ -21,7 +22,7 @@ const createDigitRoulette = (svg, fontSize, lineHeight, id) => {
 const createCharacter = (svg, el, fontSize) => svg
   ::append('g')
   ::append('text')
-  ::style('font-size', `${fontSize}px`)
+  ::style('filter', `url(#createShadowFailFilter)`)
   ::text(el);
 
 const createFilter = (defs, id) => defs::append('filter')
@@ -31,6 +32,13 @@ const createFilter = (defs, id) => defs::append('filter')
 	::append('feGaussianBlur')
     ::attr('class', 'blurValues')
     ::attr('in', 'SourceGraphic')
+    ::attr('stdDeviation', '0 0');
+
+const createShadowFailFilter = (defs) => defs::append('filter')
+	::attr('id', `createShadowFailFilter`)
+	::attr('width', '300%')
+	::attr('x', '-100%')
+  	::append('feGaussianBlur')
     ::attr('stdDeviation', '0 0');
 
 const createGradient = (defs, id) => defs::append('linearGradient')
@@ -98,6 +106,7 @@ export default ({
   const defs = root::append('defs');
   createGradient(defs, salt);
   createMask(defs, salt);
+  createShadowFailFilter(defs);
 
   const values = String(value)
     .replace(/ /g, '\u00a0')
@@ -137,7 +146,7 @@ export default ({
         digit.node::attr('transform', `translate(${digit.offset.x}, ${digit.offset.y})`);
         const filterOrigin = targetDistance / 2;
         const motionValue = Math.abs(Math.abs(value - filterOrigin) - filterOrigin) / 100;
-        select(`#motionFilter-${digit.id} .blurValues`)::attr('stdDeviation', `0 ${motionValue}`);
+        digit.filter::attr('stdDeviation', `0 ${motionValue}`);
       },
       end: i === 0 ? () => cancelAnimation() : (e) => e
     });
