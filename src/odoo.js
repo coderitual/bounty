@@ -76,11 +76,12 @@ const createMask = (defs, id) => defs::append('mask')
   ::attr('height', '100%')
   ::attr('fill', `url(#gradient-${id})`);
 
-const setViewBox = (svg, width, height) => svg
-  ::attr('width', width)
-  ::attr('height', height)
-  ::attr('viewBox', `0 0 ${width} ${height}`)
-  ::style('overflow', 'hidden');
+const setViewBox = (svg, width, height) => {
+  svg::attr('width', width)
+  svg::attr('height', height)
+  svg::attr('viewBox', `0 0 ${width} ${height}`)
+  svg::style('overflow', 'hidden');
+}
 
 export default ({
   el,
