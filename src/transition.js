@@ -1,5 +1,4 @@
 const cubicInOut = (t) => ((t *= 2) <= 1 ? t * t * t : (t -= 2) * t * t + 2) / 2;
-const linear = t => +t;
 
 export default ({
   from,
@@ -15,20 +14,20 @@ export default ({
   let startTime = 0;
   let finished = false;
   const update = (timestamp) => {
-    if(finished) {
+    if (finished) {
       return;
     }
-    if(!startTime) {
+    if (!startTime) {
       startTime = timestamp;
       start(value);
     }
     const t = Math.min(Math.max(timestamp - startTime - delay, 0), duration) / duration;
-    value = easing(t) * (to - from) + from;
+    value = (easing(t) * (to - from)) + from;
     step(value);
-    if(t === 1) {
+    if (t === 1) {
       finished = true;
       end(value);
     }
-  }
+  };
   return { update };
 };
