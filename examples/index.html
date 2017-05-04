@@ -7,23 +7,35 @@
   <meta name="author" content="Coderitual">
   <meta name="description" content="Canvas 2d odometer effect">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
   <style type="text/css">
     @font-face{
       font-family: 'ITV Reem';
       src: url(assets/itvreem.woff) format('woff');
     }
+    html {
+      width: 100%;
+      height: 100%;
+    }
     body {
-      background-color: #999;
-      font-family: 'ITV Reem';
-      font-size: 82px;
+      background: radial-gradient(circle at 33% 100%, #FED373 4%, #F15245 30%, #D92E7F 62%, #9B36B7 85%, #515ECF);
+      height: 100%;
+      width: 100%;
+      font-family: 'Inconsolata';
+      font-weight: bold;
+      font-size: 15vmin;
       text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
       fill: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
     }
   </style>
 </head>
 <body>
   <div class="js-odoo"></div>
   <script src="/odoo.js"></script>
-  <script>odoo.default({ el:'.js-odoo',value:'£42,000,000' })</script>
+  <script>odoo.default({ el:'.js-odoo', from: 'NOVEMBER16', to: 'CODEVEMBER' })</script>
 </body>
 </html>
