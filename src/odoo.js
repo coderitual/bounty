@@ -84,7 +84,7 @@ const setViewBox = (svg, width, height) => {
 }
 
 export default ({
-  el,
+  element,
   from,
   to,
   lineHeight = 1.35,
@@ -92,7 +92,6 @@ export default ({
   animationDelay = 100,
   letterAnimationDelay = 100
 }) => {
-  const element = select(el);
   const computedStyle = window.getComputedStyle(element);
   const fontSize = parseInt(computedStyle.fontSize, 10);
   const marginBottom = (fontSize * lineHeight - fontSize) / 2 + fontSize / 10;
