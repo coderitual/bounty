@@ -8,6 +8,7 @@
   <meta name="description" content="Canvas 2d odometer effect">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+  <script src="vendor/custom-elements-es5-adapter.js"></script>
   <style type="text/css">
     @font-face{
       font-family: 'ITV Reem';
@@ -32,8 +33,7 @@
   </style>
 </head>
 <body>
-  <div class="js-odoo"></div>
   <script src="/odoo.js"></script>
-  <script>odoo.default({ element: document.querySelector('.js-odoo'), from: 'NOVEMBER16', to: 'CODEVEMBER' })</script>
+  <svg-odoo from="00.000.000" to="32.579.000"/>
 </body>
 </html>
