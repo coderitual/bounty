@@ -3,6 +3,7 @@ import odoo from './odoo';
 export default class SvgOdoo extends HTMLElement {
   constructor() {
     super();
+    this._cancel = null;
   }
 
   static get observedAttributes() {
@@ -10,12 +11,15 @@ export default class SvgOdoo extends HTMLElement {
   }
 
   connectedCallback() {
+    this._cancel = odoo({element: this, from: this.getAttribute('from'), to: this.getAttribute('to') });
   }
 
   disconnectedCallback() {
+    this._cancel();
   }
 
-  attributeChangedCallback(name) {
+  attributeChangedCallback(name, oldVal, newVal) {
+    this._cancel = odoo({ element: this, from: this.getAttribute('from'), to: this.getAttribute('to') });
   }
 
 };
