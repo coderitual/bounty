@@ -21,12 +21,6 @@ export default class SvgOdoo extends HTMLElement {
   attributeChangedCallback(name) {
     this._cancel = odoo({ element: this, from: this.getAttribute('from'), to: this.getAttribute('to') });
   }
-
-  set from(value) { this.setAttribute('from', value); }
-  get from() { return this.getAttribute('from'); }
-
-  set to(value) { this.setAttribute('to', value); }
-  get to() { return this.getAttribute('to'); }
 };
 
 customElements.define('svg-odoo', SvgOdoo);
