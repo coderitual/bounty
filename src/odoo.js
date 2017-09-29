@@ -144,7 +144,7 @@ export default ({
         filter: createFilter(defs, id),
         value: Number(char),
         initial: Number(initial[i]),
-        offset: { x: 0, y: offset }
+        offset: { x: 0, y: offset + Number(initial[i]) * (fontSize * lineHeight) }
       };
     }
   });
