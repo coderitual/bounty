@@ -86,6 +86,7 @@ const setViewBox = (svg, width, height) => {
 export default ({
   el,
   value,
+  initialValue = null,
   lineHeight = 1.35,
   letterSpacing = 1,
   animationDelay = 100,
@@ -109,13 +110,26 @@ export default ({
   createMask(defs, salt);
   createShadowFailFilter(defs);
 
-  const values = String(value)
-    .replace(/ /g, '\u00a0')
-    .split('');
+  const prepareValues = (value, secondValue) => {
+    const values = String(value)
+      .replace(/ /g, '\u00a0')
+      .split('');
+
+    const digitIndex = String(value).search(/\d/);
+    while (secondValue.length > values.length) {
+      const char = secondValue[secondValue.length - values.length - 1 + digitIndex];
+      values.splice(digitIndex, 0, isNaN(parseInt(char, 10)) ? char : '0');
+    }
+    return values;
+  };
+
+  const initialString = String(initialValue || '0');
+  const values = prepareValues(String(value), initialString);
+  const initial = prepareValues(initialString, String(value));
 
   const chars = values.map((char, i) => {
     const id = `${i}-${salt}`;
-    if(isNaN(parseInt(char, 10))) {
+    if(isNaN(parseInt(char, 10)) || isNaN(parseInt(initial[i], 10))) {
       return {
         isDigit: false,
         node: createCharacter(svg, char, fontSize),
@@ -129,7 +143,8 @@ export default ({
         node: createDigitRoulette(svg, fontSize, lineHeight, id),
         filter: createFilter(defs, id),
         value: Number(char),
-        offset: { x: 0, y: offset }
+        initial: Number(initial[i]),
+        offset: { x: 0, y: offset + Number(initial[i]) * (fontSize * lineHeight) }
       };
     }
   });
@@ -137,16 +152,17 @@ export default ({
   const transitions = [];
   const digits = chars.filter(char => char.isDigit);
   digits.forEach((digit, i) => {
+    const sourceDistance = digit.initial * (fontSize * lineHeight);
     const targetDistance = (ROTATIONS * DIGITS_COUNT + digit.value) * (fontSize * lineHeight);
     const digitTransition = transition({
-      from: 0,
+      from: sourceDistance,
       to: targetDistance,
       delay: (digits.length - 1 - i) * letterAnimationDelay + animationDelay,
       step(value) {
         digit.offset.y = offset + value % ((fontSize * lineHeight) * DIGITS_COUNT);
         digit.node::attr('transform', `translate(${digit.offset.x}, ${digit.offset.y})`);
-        const filterOrigin = targetDistance / 2;
-        const motionValue = Math.abs(Math.abs(value - filterOrigin) - filterOrigin) / 100;
+        const filterOrigin = (sourceDistance + targetDistance) / 2;
+        const motionValue = (Math.abs(Math.abs(value - filterOrigin) - filterOrigin) - sourceDistance) / 100;
         digit.filter::attr('stdDeviation', `0 ${motionValue}`);
       },
       end: i === 0 ? () => cancelAnimation() : (e) => e

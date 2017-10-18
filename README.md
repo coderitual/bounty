@@ -16,6 +16,7 @@ You can use it with other **options**:
 odoo.default({
   el: '.js-odoo',
   value: '£42,000,000',
+  initialValue: '£900,000',
   lineHeight: 1.35,
   letterSpacing: 1,
   animationDelay: 100,
