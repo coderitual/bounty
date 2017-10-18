@@ -1,7 +1,7 @@
 {
   "name": "odoo",
-  "version": "1.0.3",
-  "description": "Canvas2d odometer effect",
+  "version": "1.1.0",
+  "description": "SVG odometer effect",
   "main": "src/index.js",
   "scripts": {
     "start": "webpack-dev-server --progress --colors --inline --host 0.0.0.0",
