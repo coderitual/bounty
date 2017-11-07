@@ -2,7 +2,7 @@ odoo: SVG Odometer Effect Library
 ======
 > Crazy SVG odometer effect library. Library uses functional approach and ES7 Function Bind Syntax. Internals strongly inspired by d3.js library.
 
-<p align="center"><img src ="docs/example2.gif"/></p>
+<p align="center"><img src ="docs/example.gif"/></p>
 
 [Demo](https://coderitual.github.io/odoo/examples/)
 
@@ -42,6 +42,12 @@ Yea! That's it. Other options like `font-family` and `font-size` are taken from 
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 }
 ```
+
+Customization
+====
+There is a work in progress
+
+<p align="center"><img src ="docs/example2.gif"/></p>
 
 ## License
 
