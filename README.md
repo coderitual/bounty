@@ -43,7 +43,7 @@ Yea! That's it. Other options like `font-family` and `font-size` are taken from 
 }
 ```
 
-Customization
+Roadmap
 ====
 There is a work in progress to implement additional features:
 * `from` `to` API.
