@@ -45,7 +45,10 @@ Yea! That's it. Other options like `font-family` and `font-size` are taken from 
 
 Customization
 ====
-There is a work in progress
+There is a work in progress to implement additional features:
+* `from` `to` API.
+* Full ASCII transition support.
+* Control animation.
 
 <p align="center"><img src ="docs/example2.gif"/></p>
 
