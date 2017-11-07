@@ -1,6 +1,6 @@
 odoo: SVG Odometer Effect Library
 ======
-Crazy SVG odometer effect library. Library uses functional approach and ES7 Function Bind Syntax. Internals strongly inspired by d3.js library.
+> Crazy SVG odometer effect library. Library uses functional approach and ES7 Function Bind Syntax. Internals strongly inspired by d3.js library.
 
 <p align="center"><img src ="docs/example.gif"/></p>
 
