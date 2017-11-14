@@ -11,6 +11,10 @@
   "files": [
     "lib/*.js"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coderitual/bounty.git"
+  },
   "keywords": [
     "svg",
     "odometer",
@@ -20,7 +24,7 @@
     "library",
     "webcomponents"
   ],
-  "author": "coderitual <skowronkow@gmail.com>",
+  "author": "Michal Skowronek <skowronkow@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.13.2",
