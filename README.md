@@ -6,6 +6,11 @@ SVG Odometer Effect Library
 
 [Demo](https://coderitual.github.io/bounty/examples/)
 
+## Installation
+To install the stable version:
+
+`npm install --save bounty`
+
 Examples
 ======
 The API is really simple and straigthforward:
@@ -15,7 +20,9 @@ bounty.default({ el: '.js-bounty', value: '£42,000,000' });
 
 You can use it with other **options**:
 ```js
-bounty.default({
+import bounty from `bounty`;
+
+bounty({
   el: '.js-bounty',
   value: '£42,000,000',
   initialValue: '£900,000',
@@ -27,8 +34,20 @@ bounty.default({
 ```
 If you want to **cancel** the ongoing animation just call returned function:
 ```js
-const cancel = bounty.default({ el: '.js-bounty', value: '£42,000,000' });
+const cancel = bounty({ el: '.js-bounty', value: '£42,000,000' });
 cancel();
+```
+
+Library is built using umd thus the following usage is possible.
+
+```html
+<body>
+  <div class="js-bounty"></div>
+  <script src="/bounty.js"></script>
+  <script>
+    bounty.default({ el: '.js-bounty', value: '£42,000,000' })
+  </script>
+</body>
 ```
 
 That's it?

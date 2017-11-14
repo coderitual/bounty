@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>bounty</title>
@@ -8,22 +9,27 @@
   <meta name="description" content="Canvas 2d odometer effect">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <style type="text/css">
-    @font-face{
+    @font-face {
       font-family: 'ITV Reem';
       src: url(assets/itvreem.woff) format('woff');
     }
+
     body {
       background-color: #999;
       font-family: 'ITV Reem';
       font-size: 82px;
-      text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
       fill: #fff;
     }
   </style>
 </head>
+
 <body>
-<div class="js-bounty"></div>
-<script src="/bounty.js"></script>
-<script>bounty.default({ el:'.js-bounty',value:'£42,000,000',initialValue:'£123,456' })</script>
+  <div class="js-bounty"></div>
+  <script src="/bounty.js"></script>
+  <script>
+    bounty.default({ el: '.js-bounty', value: '£42,000,000', initialValue: '£123,456' })
+  </script>
 </body>
+
 </html>
