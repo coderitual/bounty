@@ -4,7 +4,7 @@ SVG Odometer Effect Library
 
 <p align="center"><img src ="docs/example.gif"/></p>
 
-[Demo](https://coderitual.github.io/odoo/examples/)
+[Demo](https://coderitual.github.io/bounty/examples/)
 
 Examples
 ======
