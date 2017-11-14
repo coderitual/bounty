@@ -1,6 +1,6 @@
-export default (func) => {
+export default func => {
   let frame;
-  const step = (timestamp) => {
+  const step = timestamp => {
     frame = requestAnimationFrame(step);
     func(timestamp);
   };

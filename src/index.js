@@ -1,1 +1,1 @@
-export { default } from './odoo';
+export { default } from './bounty';

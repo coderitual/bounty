@@ -1,11 +1,11 @@
 module.exports = {
   entry: './src/index.js',
   output: {
-    filename: 'odoo.js',
+    filename: 'bounty.js',
     path: './lib/',
     publicPath: '/',
     libraryTarget: 'umd',
-    library: 'odoo'
+    library: 'bounty'
   },
   module: {
     loaders: [

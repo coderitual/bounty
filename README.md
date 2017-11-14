@@ -10,13 +10,13 @@ Examples
 ======
 The API is really simple and straigthforward:
 ```js
-odoo.default({ el: '.js-odoo', value: '£42,000,000' });
+bounty.default({ el: '.js-bounty', value: '£42,000,000' });
 ```
 
 You can use it with other **options**:
 ```js
-odoo.default({
-  el: '.js-odoo',
+bounty.default({
+  el: '.js-bounty',
   value: '£42,000,000',
   initialValue: '£900,000',
   lineHeight: 1.35,
@@ -27,7 +27,7 @@ odoo.default({
 ```
 If you want to **cancel** the ongoing animation just call returned function:
 ```js
-const cancel = odoo.default({ el: '.js-odoo', value: '£42,000,000' });
+const cancel = bounty.default({ el: '.js-bounty', value: '£42,000,000' });
 cancel();
 ```
 
@@ -35,7 +35,7 @@ That's it?
 =====
 Yea! That's it. Other options like `font-family` and `font-size` are taken from **computed styles** so you can just style it like the other layers.
 ```css
-.js-odoo {
+.js-bounty {
   font-size: 60px;
   font-family: Roboto;
   fill: #fff;
@@ -53,5 +53,4 @@ There is a work in progress to implement additional features:
 <p align="center"><img src ="docs/example2.gif"/></p>
 
 ## License
-
-Odoo is available under the MIT license. See the [LICENSE](LICENSE) file for more info.
+The library is available under the MIT license. See the [LICENSE](LICENSE) file for more info.

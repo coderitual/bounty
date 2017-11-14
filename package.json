@@ -1,19 +1,26 @@
 {
-  "name": "odoo",
-  "version": "1.1.0",
+  "name": "bounty",
+  "version": "1.1.1",
   "description": "SVG odometer effect",
-  "main": "src/index.js",
+  "main": "lib/bounty.js",
   "scripts": {
     "start": "webpack-dev-server --progress --colors --inline --host 0.0.0.0",
     "build": "webpack -p",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "canvas2d",
-    "odometer",
-    "effect"
+  "files": [
+    "lib/*.js"
   ],
-  "author": "Coderitual",
+  "keywords": [
+    "svg",
+    "odometer",
+    "effect",
+    "animation",
+    "ui",
+    "library",
+    "webcomponents"
+  ],
+  "author": "coderitual <skowronkow@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.13.2",
