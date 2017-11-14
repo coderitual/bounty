@@ -11,11 +11,12 @@ To install the stable version:
 
 `npm install --save bounty`
 
-Examples
-======
+## Examples
 The API is really simple and straigthforward:
 ```js
-bounty.default({ el: '.js-bounty', value: '£42,000,000' });
+import bounty from `bounty`;
+
+bounty({ el: '.js-bounty', value: '£42,000,000' });
 ```
 
 You can use it with other **options**:
@@ -34,24 +35,23 @@ bounty({
 ```
 If you want to **cancel** the ongoing animation just call returned function:
 ```js
+import bounty from `bounty`;
+
 const cancel = bounty({ el: '.js-bounty', value: '£42,000,000' });
 cancel();
 ```
 
-Library is built using umd thus the following usage is possible.
+Library is built using **UMD** thus the following usage in **HTML** is possible.
 
 ```html
-<body>
-  <div class="js-bounty"></div>
-  <script src="/bounty.js"></script>
-  <script>
-    bounty.default({ el: '.js-bounty', value: '£42,000,000' })
-  </script>
-</body>
+<div class="js-bounty"></div>
+<script src="/bounty.js"></script>
+<script>
+  bounty.default({ el: '.js-bounty', value: '£42,000,000' })
+</script>
 ```
 
-That's it?
-=====
+## That's it?
 Yea! That's it. Other options like `font-family` and `font-size` are taken from **computed styles** so you can just style it like the other layers.
 ```css
 .js-bounty {
@@ -62,8 +62,7 @@ Yea! That's it. Other options like `font-family` and `font-size` are taken from 
 }
 ```
 
-Roadmap
-====
+## Roadmap
 There is a work in progress to implement additional features:
 * `from` `to` API.
 * Full ASCII transition support.
