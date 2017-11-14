@@ -1,5 +1,11 @@
-SVG Odometer Effect Library
-======
+<p align="center">
+  <a href="https://www.npmjs.com/package/bounty"><img src="https://img.shields.io/npm/v/bounty.svg" alt="Version"></a>
+  <a href="https://www.npmjs.com/package/bounty"><img src="https://img.shields.io/npm/l/bounty.svg" alt="License"></a>
+  <br>
+</p>
+
+<h1 align="center">bounty</h1>
+
 > Crazy SVG odometer effect library. Library uses functional approach and ES7 Function Bind Syntax. Internals strongly inspired by d3.js library.
 
 <p align="center"><img src ="docs/example.gif"/></p>
