@@ -1,11 +1,4 @@
-<p align="center">
-  <a href="https://www.npmjs.com/package/bounty"><img src="https://img.shields.io/npm/v/bounty.svg" alt="Version"></a>
-  <a href="https://www.npmjs.com/package/bounty"><img src="https://img.shields.io/npm/l/bounty.svg" alt="License"></a>
-  <br>
-</p>
-
-<h1 align="center">bounty</h1>
-
+# bounty [![NPM version][npm-version-image]][npm-url] [![NPM version][npm-license-image]][npm-url]
 > Crazy SVG odometer effect library. Library uses functional approach and ES7 Function Bind Syntax. Internals strongly inspired by d3.js library.
 
 <p align="center"><img src ="docs/example.gif"/></p>
@@ -78,3 +71,7 @@ There is a work in progress to implement additional features:
 
 ## License
 The library is available under the MIT license. See the [LICENSE](LICENSE) file for more info.
+
+[npm-version-image]: https://img.shields.io/npm/v/bounty.svg
+[npm-license-image]: https://img.shields.io/npm/l/bounty.svg
+[npm-url]: https://www.npmjs.com/package/bounty
