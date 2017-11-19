@@ -21,7 +21,8 @@ export default ({
       startTime = timestamp;
       start(value);
     }
-    const t = Math.min(Math.max(timestamp - startTime - delay, 0), duration) / duration;
+    const t =
+      Math.min(Math.max(timestamp - startTime - delay, 0), duration) / duration;
     value = easing(t) * (to - from) + from;
     step(value);
     if (t === 1) {
