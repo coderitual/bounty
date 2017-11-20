@@ -191,17 +191,14 @@ export default ({
     chars.forEach(char => {
       const { width } = char.node.getBBox();
 
-      if (char.offset.x !== canvasWidth) {
-        char.offset.x = canvasWidth;
-        // set proper kerning for proportional fonts
-        if (char.isDigit) {
-          [...char.node.children].forEach(element => {
-            const { width: letterWidth } = element.getBBox();
-            const offset = (width - letterWidth) / 2;
-            console.log(offset);
-            element.setAttribute('x', offset);
-          });
-        }
+      char.offset.x = canvasWidth;
+      // set proper kerning for proportional fonts
+      if (char.isDigit) {
+        [...char.node.children].forEach(element => {
+          const { width: letterWidth } = element.getBBox();
+          const offset = (width - letterWidth) / 2;
+          element.setAttribute('x', offset);
+        });
       }
 
       canvasWidth += width + letterSpacing;
