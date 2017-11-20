@@ -129,8 +129,7 @@ export default ({
 
     const digitIndex = String(value).search(/\d/);
     while (secondValue.length > values.length) {
-      const char =
-        secondValue[secondValue.length - values.length - 1 + digitIndex];
+      const char = secondValue[secondValue.length - values.length - 1 + digitIndex];
       values.splice(digitIndex, 0, isNaN(parseInt(char, 10)) ? char : '0');
     }
     return values;
@@ -169,24 +168,17 @@ export default ({
   const digits = chars.filter(char => char.isDigit);
   digits.forEach((digit, i) => {
     const sourceDistance = digit.initial * (fontSize * lineHeight);
-    const targetDistance =
-      (ROTATIONS * DIGITS_COUNT + digit.value) * (fontSize * lineHeight);
+    const targetDistance = (ROTATIONS * DIGITS_COUNT + digit.value) * (fontSize * lineHeight);
     const digitTransition = transition({
       from: sourceDistance,
       to: targetDistance,
       delay: (digits.length - 1 - i) * letterAnimationDelay + animationDelay,
       step(value) {
-        digit.offset.y =
-          offset + value % (fontSize * lineHeight * DIGITS_COUNT);
-        digit.node::attr(
-          'transform',
-          `translate(${digit.offset.x}, ${digit.offset.y})`
-        );
+        digit.offset.y = offset + value % (fontSize * lineHeight * DIGITS_COUNT);
+        digit.node::attr('transform', `translate(${digit.offset.x}, ${digit.offset.y})`);
         const filterOrigin = (sourceDistance + targetDistance) / 2;
         const motionValue =
-          (Math.abs(Math.abs(value - filterOrigin) - filterOrigin) -
-            sourceDistance) /
-          100;
+          (Math.abs(Math.abs(value - filterOrigin) - filterOrigin) - sourceDistance) / 100;
         digit.filter::attr('stdDeviation', `0 ${motionValue}`);
       },
       end: i === 0 ? () => cancelAnimation() : e => e
@@ -216,10 +208,7 @@ export default ({
     });
 
     chars.forEach(char => {
-      char.node::attr(
-        'transform',
-        `translate(${char.offset.x}, ${char.offset.y})`
-      );
+      char.node::attr('transform', `translate(${char.offset.x}, ${char.offset.y})`);
     });
 
     setViewBox(root, canvasWidth, canvasHeight);
