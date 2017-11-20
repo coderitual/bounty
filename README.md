@@ -64,9 +64,10 @@ Yea! That's it. Other options like `font-family` and `font-size` are taken from 
 
 ## Roadmap
 There is a work in progress to implement additional features:
-* `from` `to` API.
-* Full ASCII transition support.
-* Control animation.
+* [ ] `from` `to` API.
+* [ ] Full ASCII transition support.
+* [ ] Control animation.
+* [ ] Provide Webcomponents API `<svg-bounty>`
 
 <p align="center"><img src ="docs/example2.gif"/></p>
 
