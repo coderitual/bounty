@@ -72,7 +72,7 @@ There is a work in progress to implement additional features:
 <p align="center"><img src ="docs/example2.gif"/></p>
 
 ## License
-The library is available under the MIT license. See the [LICENSE](LICENSE) file for more info.
+The library is available under the MIT license. For more info, see the [LICENSE](LICENSE) file.
 
 [npm-version-image]: https://img.shields.io/npm/v/bounty.svg
 [npm-license-image]: https://img.shields.io/npm/l/bounty.svg
