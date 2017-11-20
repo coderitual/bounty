@@ -1,4 +1,4 @@
-export default function (value) {
+export default function(value) {
   this.textContent = value;
   return this;
 }
