@@ -67,7 +67,7 @@ There is a work in progress to implement additional features:
 * [ ] `from` `to` API.
 * [ ] Full ASCII transition support.
 * [ ] Control animation.
-* [ ] Provide Webcomponents API `<svg-bounty>`
+* [ ] Introduce Webcomponents API `<svg-bounty>`
 
 <p align="center"><img src ="docs/example2.gif"/></p>
 
