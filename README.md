@@ -53,7 +53,7 @@ Library is built using UMD thus the following usage in HTML is possible.
 
 The UMD build is also available on unpkg:
 
-```js
+```html
 <script src="https://unpkg.com/bounty@1.1.6/lib/bounty.js"></script>
 ```
 You can find the library on `window.bounty`.
