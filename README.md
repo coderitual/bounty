@@ -41,7 +41,7 @@ const cancel = bounty({ el: '.js-bounty', value: '£42,000,000' });
 cancel();
 ```
 
-Library is built using **UMD** thus the following usage in **HTML** is possible.
+Library is built using UMD thus the following usage in HTML is possible.
 
 ```html
 <div class="js-bounty"></div>
@@ -50,6 +50,13 @@ Library is built using **UMD** thus the following usage in **HTML** is possible.
   bounty.default({ el: '.js-bounty', value: '£42,000,000' })
 </script>
 ```
+
+The UMD build is also available on unpkg:
+
+```js
+<script src="https://unpkg.com/bounty@1.1.6/lib/bounty.js"></script>
+```
+You can find the library on `window.bounty`.
 
 ## That's it?
 Yea! That's it. Other options like `font-family` and `font-size` are taken from **computed styles** so you can just style it like the other layers.
