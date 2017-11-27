@@ -1,4 +1,4 @@
-# 🎰 bounty 
+# bounty 
 [![NPM version][npm-version-image]][npm-url] [![NPM version][npm-license-image]][npm-url]
 > Crazy SVG odometer effect library. Library uses functional approach and ES7 Function Bind Syntax. Internals strongly inspired by d3.js library.
 
