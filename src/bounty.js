@@ -203,6 +203,7 @@ export default ({
 
       canvasWidth += width + letterSpacing;
     });
+    canvasWidth -= letterSpacing;
 
     chars.forEach(char => {
       char.node::attr('transform', `translate(${char.offset.x}, ${char.offset.y})`);
