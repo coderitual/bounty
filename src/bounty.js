@@ -194,7 +194,7 @@ export default ({
       char.offset.x = canvasWidth;
       // set proper kerning for proportional fonts
       if (char.isDigit) {
-        [...char.node.children].forEach(element => {
+        [...char.node.childNodes].forEach(element => {
           const { width: letterWidth } = element.getBBox();
           const offset = (width - letterWidth) / 2;
           element.setAttribute('x', offset);
