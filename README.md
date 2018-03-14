@@ -4,7 +4,7 @@
 
 <p align="center"><img src ="docs/logo.gif"/></p>
 
-[Demo](https://coderitual.github.io/bounty/examples/)
+[See the live version](https://coderitual.github.io/bounty/examples/)
 
 ## Installation
 To install the stable version:
