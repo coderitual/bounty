@@ -1,6 +1,6 @@
 # bounty
 [![NPM version][npm-version-image]][npm-url] [![NPM version][npm-license-image]][npm-url]
-> JavaScript and SVG odometer effect library for smoothly transitioning numbers with motion blur. Library uses functional approach and ES7 Function Bind Syntax. Internals strongly inspired by d3.js library.
+> JavaScript odometer or slot machine effect library for smoothly transitioning numbers with motion blur. Library uses functional approach and ES7 Function Bind Syntax. Internally based on SVG.
 
 <p align="center"><img src ="docs/logo.gif"/></p>
 
