@@ -1,7 +1,6 @@
 <h1 align="center">
 	<br>
-	<img width="400" src="docs/logo.png" alt="bounty logo">
-	<br>
+	🥥 Bounty
 	<br>
 	<br>
 </h1>
