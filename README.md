@@ -1,7 +1,7 @@
 <h1 align="center">
-	<br>
+	<br/>
 	<img src ="docs/coconut.png"/>
-  <br>
+  <br/>
   bounty
 </h1>
 
