@@ -3,8 +3,6 @@
 	<img src ="docs/coconut.png"/>
   <br>
   bounty
-	<br/>
-	<br/>
 </h1>
 
 [![NPM version][npm-version-image]][npm-url] [![NPM version][npm-license-image]][npm-url]
