@@ -3,11 +3,9 @@
 	<img src ="docs/coconut.png"/>
   <br>
   Bounty
-	<br>
-	<br>
+	<br/>
+	<br/>
 </h1>
-
-#
 [![NPM version][npm-version-image]][npm-url] [![NPM version][npm-license-image]][npm-url]
 > JavaScript odometer or slot machine effect library for smoothly transitioning numbers with motion blur. Library uses functional approach and ES7 Function Bind Syntax. Internally based on SVG.
 
