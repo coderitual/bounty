@@ -5,6 +5,13 @@
   bounty
 </h1>
 
+<p align="center" style="color: #343a40">
+  <img src ="docs/coconut.png"/>
+  <h1 align="center">bounty</h1>
+</p>
+<p align="center" style="font-size: 1.2rem;">SVG library for transitioning numbers with motion blur</p>
+
+
 [![NPM version][npm-version-image]][npm-url] [![NPM version][npm-license-image]][npm-url]
 > JavaScript odometer or slot machine effect library for smoothly transitioning numbers with motion blur. Library uses functional approach and ES7 Function Bind Syntax. Internally based on SVG.
 
