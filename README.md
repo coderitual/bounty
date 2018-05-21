@@ -2,7 +2,7 @@
 	<br>
 	<img src ="docs/coconut.png"/>
   <br>
-  Bounty
+  bounty
 	<br/>
 	<br/>
 </h1>
