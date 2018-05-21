@@ -1,4 +1,4 @@
-<p align="center" style="color: #343a40">
+<p align="center">
   <img src ="docs/coconut.png"/>
   <h1 align="center">bounty</h1>
 </p>
