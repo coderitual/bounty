@@ -1,6 +1,5 @@
 <p align="center">
-  <img src ="docs/coconut.png"/>
-  <h1 align="center">bounty</h1>
+  <img src ="docs/logo.png"/>
 </p>
 <p align="center" style="font-size: 1.2rem;">SVG library for transitioning numbers with motion blur</p>
 
