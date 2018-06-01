@@ -1,5 +1,5 @@
 <p align="center">
-  <img src ="docs/logo.png"/>
+  <img src ="docs/header.png"/>
 </p>
 <p align="center" style="font-size: 1.2rem;">SVG library for transitioning numbers with motion blur</p>
 
