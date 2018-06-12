@@ -1,7 +1,7 @@
 {
   "name": "bounty",
-  "version": "1.1.8",
-  "description": "SVG odometer effect",
+  "version": "1.1.9",
+  "description": "SVG library for transitioning numbers with motion blur",
   "main": "lib/bounty.js",
   "scripts": {
     "start": "webpack-dev-server --progress --colors --inline --host 0.0.0.0",
