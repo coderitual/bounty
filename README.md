@@ -3,7 +3,8 @@
 </p>
 <p align="center" style="font-size: 1.2rem;">SVG library for transitioning numbers with motion blur</p>
 
-[![NPM version][npm-version-image]][npm-url] [![NPM version][npm-license-image]][npm-url]
+[![npm version](https://badge.fury.io/js/bounty.svg)](https://www.npmjs.com/package/bounty)
+[![Dependencies](https://david-dm.org/coderitual/bounty.svg)](https://david-dm.org/coderitual/bounty)
 > JavaScript odometer or slot machine effect library for smoothly transitioning numbers with motion blur. Library uses functional approach and ES7 Function Bind Syntax. Internally based on SVG.
 
 <p align="center"><img src ="docs/logo.gif"/></p>
@@ -84,7 +85,3 @@ There is a work in progress to implement additional features:
 
 ## License
 The library is available under the MIT license. For more info, see the [LICENSE](LICENSE) file.
-
-[npm-version-image]: https://img.shields.io/npm/v/bounty.svg
-[npm-license-image]: https://img.shields.io/npm/l/bounty.svg
-[npm-url]: https://www.npmjs.com/package/bounty
