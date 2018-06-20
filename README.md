@@ -9,7 +9,7 @@
 
 <p align="center"><img src ="docs/logo.gif"/></p>
 
-[See the live version](https://coderitual.github.io/bounty/examples/)
+See the **[live version](https://coderitual.github.io/bounty/examples/)**.
 
 ## Installation
 To install the stable version:
@@ -73,6 +73,10 @@ Yea! That's it. Other options like `font-family` and `font-size` are taken from 
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 }
 ```
+
+## How?
+
+ If you're interested how it's made, see the **[presentation](http://slides.com/coderitual/odoo-js)**.
 
 ## Roadmap
 There is a work in progress to implement additional features:
