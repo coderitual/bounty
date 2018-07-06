@@ -26,7 +26,6 @@ const createCharacter = (svg, el, fontSize) =>
   svg
     ::append('g')
     ::append('text')
-    ::style('filter', `url(#createShadowFailFilter)`)
     ::text(el);
 
 const createFilter = (defs, id) =>
