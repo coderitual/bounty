@@ -26,7 +26,6 @@ const createCharacter = (svg, el, fontSize) =>
   svg
     ::append('g')
     ::append('text')
-    ::style('filter', `url(#createShadowFailFilter)`)
     ::text(el);
 
 const createFilter = (defs, id) =>
@@ -38,15 +37,6 @@ const createFilter = (defs, id) =>
     ::append('feGaussianBlur')
     ::attr('class', 'blurValues')
     ::attr('in', 'SourceGraphic')
-    ::attr('stdDeviation', '0 0');
-
-const createShadowFailFilter = defs =>
-  defs
-    ::append('filter')
-    ::attr('id', `createShadowFailFilter`)
-    ::attr('width', '300%')
-    ::attr('x', '-100%')
-    ::append('feGaussianBlur')
     ::attr('stdDeviation', '0 0');
 
 const createGradient = (defs, id) =>
@@ -120,7 +110,6 @@ export default ({
   const defs = root::append('defs');
   createGradient(defs, salt);
   createMask(defs, salt);
-  createShadowFailFilter(defs);
 
   const prepareValues = (value, secondValue) => {
     const values = String(value)
