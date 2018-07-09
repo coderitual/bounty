@@ -1,6 +1,6 @@
 {
   "name": "bounty",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "SVG library for transitioning numbers with motion blur",
   "main": "lib/bounty.js",
   "scripts": {
