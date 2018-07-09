@@ -39,15 +39,6 @@ const createFilter = (defs, id) =>
     ::attr('in', 'SourceGraphic')
     ::attr('stdDeviation', '0 0');
 
-const createShadowFailFilter = defs =>
-  defs
-    ::append('filter')
-    ::attr('id', `createShadowFailFilter`)
-    ::attr('width', '300%')
-    ::attr('x', '-100%')
-    ::append('feGaussianBlur')
-    ::attr('stdDeviation', '0 0');
-
 const createGradient = (defs, id) =>
   defs
     ::append('linearGradient')
@@ -119,7 +110,6 @@ export default ({
   const defs = root::append('defs');
   createGradient(defs, salt);
   createMask(defs, salt);
-  createShadowFailFilter(defs);
 
   const prepareValues = (value, secondValue) => {
     const values = String(value)
