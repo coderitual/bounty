@@ -182,7 +182,12 @@ export default ({
         ).toFixed(1);
         digit.filter::attr('stdDeviation', `0 ${motionValue}`);
       },
-      end: i === 0 ? () => cancelAnimation() : e => e
+      end: i === 0 ? () => {
+        element.querySelectorAll('[style*="filter"]').forEach(ele => {
+          ele.style.filter = ''
+        });
+        cancelAnimation();
+      } : e => e
     });
     transitions.push(digitTransition);
   });
