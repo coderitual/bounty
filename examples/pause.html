@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>bounty</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="author" content="Coderitual" />
+    <meta name="description" content="Canvas 2d odometer effect" />
+    <meta
+      name="viewport"
+      content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes"
+    />
+    <style type="text/css">
+      @font-face {
+        font-family: "ITV Reem";
+        src: url(assets/itvreem.woff) format("woff");
+      }
+
+      body {
+        background-color: #999;
+        font-family: "ITV Reem";
+        font-size: 82px;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        fill: #fff;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="js-bounty"></div>
+    <script src="../lib/bounty.js"></script>
+    <script>
+      const animation = bounty.default({
+        el: ".js-bounty",
+        value: "£42,000,000",
+        initialValue: "£123,456",
+      });
+
+      const wait = (delay) =>
+        new Promise((resolve) => setTimeout(resolve, delay));
+
+      const pasueAndRun = async () => {
+        await wait(1500);
+        animation.pause();
+        await wait(2000);
+        animation.resume();
+      };
+
+      pasueAndRun();
+    </script>
+  </body>
+</html>
