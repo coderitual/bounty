@@ -41,7 +41,7 @@ bounty({
   lineHeight: 1.35,
   letterSpacing: 1,
   animationDelay: 100,
-  letterAnimationDelay: 100
+  letterAnimationDelay: 100,
   duration = 3000
 });
 ```
