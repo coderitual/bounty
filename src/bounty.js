@@ -82,16 +82,17 @@ const setViewBox = (svg, width, height) => {
   svg::style("overflow", "hidden");
 };
 
-export default ({
-  el,
-  value,
-  initialValue = null,
-  lineHeight = 1.35,
-  letterSpacing = 1,
-  animationDelay = 100,
-  letterAnimationDelay = 100,
-  duration = 3000,
-}) => {
+const main = (initialOptions) => {
+  const {
+    el,
+    value,
+    initialValue = null,
+    lineHeight = 1.35,
+    letterSpacing = 1,
+    animationDelay = 100,
+    letterAnimationDelay = 100,
+    duration = 3000,
+  } = initialOptions;
   const element = select(el);
   const computedStyle = window.getComputedStyle(element);
   const fontSize = parseInt(computedStyle.fontSize, 10);
@@ -229,5 +230,11 @@ export default ({
     transitions.forEach((transition) => transition.resume());
   };
 
-  return { cancel, pause, resume };
+  const restart = (options) => {
+    main({ ...initialOptions, ...options });
+  };
+
+  return { cancel, pause, resume, restart };
 };
+
+export default main;
