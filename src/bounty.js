@@ -16,13 +16,14 @@ ALL_CHARS += String.fromCharCode("\u00a0");
 //console.log(ALL_CHARS[ALL_CHARS.length-1]);
 const DIGITS_COUNT = ALL_CHARS.length;
 
-const createDigitRoulette = (svg, fontSize, lineHeight, id) => {
+const createDigitRoulette = (svg, fontSize, lineHeight, id, noBlur) => {
   //const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'a'];
   const digits = ALL_CHARS.split("");
   const roulette = svg
     ::append("g")
     ::attr("id", `digit-${id}`)
-    ::style("filter", `url(#motionFilter-${id})`);
+  if(!noBlur)
+    roulette::style("filter", `url(#motionFilter-${id})`);
 
   digits.forEach((el, i) => {
     roulette
@@ -111,6 +112,7 @@ const main = (initialOptions) => {
     letterAnimationDelay = 100,
     duration = 3000,
     continuousRun = false,
+    noBlur = false,
   } = initialOptions;
   
   const element = select(el);
@@ -138,8 +140,6 @@ const main = (initialOptions) => {
     while (secondValue.length > values.length) {
       const char =
         secondValue[secondValue.length - values.length - 1];
-        //console.log(char);
-        //console.log(values);
       values.splice(0, 0, char);
     }
     return values;
@@ -148,7 +148,6 @@ const main = (initialOptions) => {
   let Value = value;
   if(initValue.length > Value.length)
   {
-    //Value = Value.padStart(initValue.length/2," ");
     Value = pad(Value, initValue.length," ");
   }
   else if(Value.length > initValue.length)
@@ -157,20 +156,17 @@ const main = (initialOptions) => {
   }
   const initialString = String(initValue || "");
   const values = prepareValues(String(Value), initialString);
-  //console.log("values:" + JSON.stringify(values));
   const initial = prepareValues(initialString, String(Value));
-  //console.log("initial:" + JSON.stringify(initial));
-
+  
   const chars = values.map((char, i) => {
-    //console.log("char: " + char);
-    //console.log("i: " + i);
     
     const id = `${i}-${salt}`;
-    
+    if(!noBlur)
+    {
       return {
         isDigit: true,
         id: id,
-        node: createDigitRoulette(svg, fontSize, lineHeight, id),
+        node: createDigitRoulette(svg, fontSize, lineHeight, id, noBlur),
         filter: createFilter(defs, id),
         value: char,
         initial: initial[i],
@@ -179,6 +175,22 @@ const main = (initialOptions) => {
           y: offset + Number(ALL_CHARS.indexOf(initial[i])) * (fontSize * lineHeight),
         },
       };
+    }
+    else {
+      return {
+        isDigit: true,
+        id: id,
+        node: createDigitRoulette(svg, fontSize, lineHeight, id, noBlur),
+        //filter: createFilter(defs, id),
+        value: char,
+        initial: initial[i],
+        offset: {
+          x: 0,
+          y: offset + Number(ALL_CHARS.indexOf(initial[i])) * (fontSize * lineHeight),
+        },
+      };
+    }
+      
     
   });
   console.log(JSON.stringify(chars));
@@ -209,7 +221,8 @@ const main = (initialOptions) => {
               sourceDistance
           ) / 100
         ).toFixed(1);
-        digit.filter::attr("stdDeviation", `0 ${motionValue}`);
+        if(!noBlur)
+          digit.filter::attr("stdDeviation", `0 ${motionValue}`);
       },
       end:
         i === 0
