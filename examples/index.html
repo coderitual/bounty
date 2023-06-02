@@ -31,9 +31,16 @@
 
 <body>
   <div class="js-bounty"></div>
-  <script src="/bounty.js"></script>
+  <div onclick="setTo('works');" style="width: 100px; height:100px; background-color: 'red';">click here</div>
+  <div class="js-bounty1"></div>
+  <script src="../lib/bounty.js"></script>
   <script>
-    bounty.default({ el: '.js-bounty', value: '£144,167.60' })
+    const {setTo} = bounty.default({ el: '.js-bounty', value: 'dark', initialValue: "Matching...",
+    animationDelay: 100, letterAnimationDelay: 100, continuousRun: true })
+  </script>
+  <script>
+    //bounty.default({ el: '.js-bounty1', value: 'montgomery21', initialValue: "Matching...",
+    //animationDelay: 100, letterAnimationDelay: 100 })
   </script>
 </body>
 

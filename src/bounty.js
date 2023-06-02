@@ -2,15 +2,28 @@ import loop from "./loop";
 import { select, append, attr, style, text } from "./selection";
 import transition from "./transition";
 
-const DIGITS_COUNT = 10;
-const ROTATIONS = 3;
 
-const createDigitRoulette = (svg, fontSize, lineHeight, id) => {
-  const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+const ROTATIONS = 3;
+var ALL_CHARS = "";//"0123456789ABCDEFGHIJKLMNOPRSTUVWXYZabcdefghijklmnoprstuvwxyz.";
+
+for( var i = 32; i <= 126; i++ )
+{
+    ALL_CHARS += String.fromCharCode( i );
+}
+//include the non breaking space;
+ALL_CHARS += String.fromCharCode("\u00a0");
+
+//console.log(ALL_CHARS[ALL_CHARS.length-1]);
+const DIGITS_COUNT = ALL_CHARS.length;
+
+const createDigitRoulette = (svg, fontSize, lineHeight, id, noBlur) => {
+  //const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'a'];
+  const digits = ALL_CHARS.split("");
   const roulette = svg
     ::append("g")
     ::attr("id", `digit-${id}`)
-    ::style("filter", `url(#motionFilter-${id})`);
+  if(!noBlur)
+    roulette::style("filter", `url(#motionFilter-${id})`);
 
   digits.forEach((el, i) => {
     roulette
@@ -81,9 +94,15 @@ const setViewBox = (svg, width, height) => {
   svg::attr("viewBox", `0 0 ${width} ${height}`);
   svg::style("overflow", "hidden");
 };
-
+const pad = (str, length, char = ALL_CHARS[ALL_CHARS.length-1]) =>
+ str.padStart((str.length + length) / 2, char).padEnd(length, char);
 const main = (initialOptions) => {
-  const {
+  //console.log(initialOptions);
+  if(initialOptions.continuousRun == true)
+  {
+    initialOptions.duration = 20000;
+  }
+  var {
     el,
     value,
     initialValue = null,
@@ -92,7 +111,10 @@ const main = (initialOptions) => {
     animationDelay = 100,
     letterAnimationDelay = 100,
     duration = 3000,
+    continuousRun = false,
+    noBlur = false,
   } = initialOptions;
+  
   const element = select(el);
   const computedStyle = window.getComputedStyle(element);
   const fontSize = parseInt(computedStyle.fontSize, 10);
@@ -111,56 +133,79 @@ const main = (initialOptions) => {
   createMask(defs, salt);
 
   const prepareValues = (value, secondValue) => {
-    const values = String(value).replace(/ /g, "\u00a0").split("");
+    
+    const values = String(value).replace(/ /g, ALL_CHARS[ALL_CHARS.length-1]).split("");
 
-    const digitIndex = String(value).search(/\d/);
+    //const digitIndex = String(value).search(/\d/);
     while (secondValue.length > values.length) {
       const char =
-        secondValue[secondValue.length - values.length - 1 + digitIndex];
-      values.splice(digitIndex, 0, isNaN(parseInt(char, 10)) ? char : "0");
+        secondValue[secondValue.length - values.length - 1];
+      values.splice(0, 0, char);
     }
     return values;
   };
-
-  const initialString = String(initialValue || "0");
-  const values = prepareValues(String(value), initialString);
-  const initial = prepareValues(initialString, String(value));
-
+  let initValue = initialValue || "";
+  let Value = value;
+  if(initValue.length > Value.length)
+  {
+    Value = pad(Value, initValue.length," ");
+  }
+  else if(Value.length > initValue.length)
+  {
+    initValue = pad(initValue,Value.length, " ");
+  }
+  const initialString = String(initValue || "");
+  const values = prepareValues(String(Value), initialString);
+  const initial = prepareValues(initialString, String(Value));
+  
   const chars = values.map((char, i) => {
+    
     const id = `${i}-${salt}`;
-    if (isNaN(parseInt(char, 10)) || isNaN(parseInt(initial[i], 10))) {
-      return {
-        isDigit: false,
-        node: createCharacter(svg, char, fontSize),
-        value: char,
-        offset: { x: 0, y: offset },
-      };
-    } else {
+    if(!noBlur)
+    {
       return {
         isDigit: true,
         id: id,
-        node: createDigitRoulette(svg, fontSize, lineHeight, id),
+        node: createDigitRoulette(svg, fontSize, lineHeight, id, noBlur),
         filter: createFilter(defs, id),
-        value: Number(char),
-        initial: Number(initial[i]),
+        value: char,
+        initial: initial[i],
         offset: {
           x: 0,
-          y: offset + Number(initial[i]) * (fontSize * lineHeight),
+          y: offset + Number(ALL_CHARS.indexOf(initial[i])) * (fontSize * lineHeight),
         },
       };
     }
+    else {
+      return {
+        isDigit: true,
+        id: id,
+        node: createDigitRoulette(svg, fontSize, lineHeight, id, noBlur),
+        //filter: createFilter(defs, id),
+        value: char,
+        initial: initial[i],
+        offset: {
+          x: 0,
+          y: offset + Number(ALL_CHARS.indexOf(initial[i])) * (fontSize * lineHeight),
+        },
+      };
+    }
+      
+    
   });
-
+  console.log(JSON.stringify(chars));
+  
   const transitions = [];
   const digits = chars.filter((char) => char.isDigit);
   digits.forEach((digit, i) => {
-    const sourceDistance = digit.initial * (fontSize * lineHeight);
+    const sourceDistance = ALL_CHARS.indexOf(digit.initial) * (fontSize * lineHeight);
     const targetDistance =
-      (ROTATIONS * DIGITS_COUNT + digit.value) * (fontSize * lineHeight);
+      (ROTATIONS * DIGITS_COUNT + ALL_CHARS.indexOf(digit.value)) * (fontSize * lineHeight);
     const digitTransition = transition({
       from: sourceDistance,
       to: targetDistance,
       duration: duration,
+      continuousRun: true,
       delay: (digits.length - 1 - i) * letterAnimationDelay + animationDelay,
       step(value) {
         digit.offset.y =
@@ -176,7 +221,8 @@ const main = (initialOptions) => {
               sourceDistance
           ) / 100
         ).toFixed(1);
-        digit.filter::attr("stdDeviation", `0 ${motionValue}`);
+        if(!noBlur)
+          digit.filter::attr("stdDeviation", `0 ${motionValue}`);
       },
       end:
         i === 0
@@ -234,7 +280,22 @@ const main = (initialOptions) => {
     main({ ...initialOptions, ...options });
   };
 
-  return { cancel, pause, resume, restart };
+  const setTo = (toValue) => {
+    //duration = 3000;
+    //cancel();
+    restart({el,
+      value: toValue,
+      initialValue: pad("", 12),
+      //lineHeight = 1.35,
+      //letterSpacing = 1,
+      animationDelay: -3000,
+      letterAnimationDelay: 0,
+      duration: 4000,
+      continuousRun: false,})
+    transitions.forEach((transition) => transition.startFinish());
+  }
+
+  return { cancel, pause, resume, restart, setTo };
 };
 
 export default main;
